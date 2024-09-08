@@ -1,9 +1,24 @@
 <script>
-  import { onMount } from "svelte";
-  import { projectList, modelList, internet, tokenUsage, agentState, messages, searchEngineList} from "$lib/store";
-  import { createProject, fetchMessages, fetchInitialData, deleteProject, fetchAgentState,fetchProjectFiles} from "$lib/api";
-  import { get } from "svelte/store";
-  import Seperator from "./ui/Seperator.svelte";
+  import { onMount } from 'svelte';
+  import {
+    projectList,
+    modelList,
+    internet,
+    tokenUsage,
+    agentState,
+    messages,
+    searchEngineList,
+  } from '$lib/store';
+  import {
+    createProject,
+    fetchMessages,
+    fetchInitialData,
+    deleteProject,
+    fetchAgentState,
+    fetchProjectFiles,
+  } from '$lib/api';
+  import { get } from 'svelte/store';
+  import Seperator from './ui/Seperator.svelte';
 
   let selectedProject;
   let selectedModel;
@@ -14,32 +29,44 @@
       const item = localStorage.getItem(itemKey);
       return item ? item : defaultItem;
     } else {
-      localStorage.setItem(itemKey, "");
+      localStorage.setItem(itemKey, '');
       return defaultItem;
     }
   };
 
-  selectedProject = checkListAndSetItem( projectList, "selectedProject", "Select Project");
-  selectedModel = checkListAndSetItem( modelList, "selectedModel", "Select Model");
-  selectedSearchEngine = checkListAndSetItem( searchEngineList, "selectedSearchEngine", "Select Search Engine");
+  selectedProject = checkListAndSetItem(
+    projectList,
+    'selectedProject',
+    'Select Project'
+  );
+  selectedModel = checkListAndSetItem(
+    modelList,
+    'selectedModel',
+    'Select Model'
+  );
+  selectedSearchEngine = checkListAndSetItem(
+    searchEngineList,
+    'selectedSearchEngine',
+    'Select Search Engine'
+  );
 
   function selectProject(project) {
     selectedProject = project;
-    localStorage.setItem("selectedProject", project);
+    localStorage.setItem('selectedProject', project);
     fetchMessages();
     fetchAgentState();
     fetchProjectFiles();
-    document.getElementById("project-dropdown").classList.add("hidden");
+    document.getElementById('project-dropdown').classList.add('hidden');
   }
   function selectModel(model) {
     selectedModel = `${model[0]}`;
-    localStorage.setItem("selectedModel", model[1]);
-    document.getElementById("model-dropdown").classList.add("hidden");
+    localStorage.setItem('selectedModel', model[1]);
+    document.getElementById('model-dropdown').classList.add('hidden');
   }
   function selectSearchEngine(searchEngine) {
     selectedSearchEngine = searchEngine;
-    localStorage.setItem("selectedSearchEngine", searchEngine);
-    document.getElementById("search-engine-dropdown").classList.add("hidden");
+    localStorage.setItem('selectedSearchEngine', searchEngine);
+    document.getElementById('search-engine-dropdown').classList.add('hidden');
   }
 
   async function createNewProject() {
@@ -56,15 +83,15 @@
       messages.set([]);
       agentState.set(null);
       tokenUsage.set(0);
-      selectedProject = "Select Project";
-      localStorage.setItem("selectedProject", "");
+      selectedProject = 'Select Project';
+      localStorage.setItem('selectedProject', '');
     }
   }
 
   const dropdowns = [
-    { dropdown: "project-dropdown", button: "project-button" },
-    { dropdown: "model-dropdown", button: "model-button" },
-    { dropdown: "search-engine-dropdown", button: "search-engine-button" },
+    { dropdown: 'project-dropdown', button: 'project-button' },
+    { dropdown: 'model-dropdown', button: 'model-button' },
+    { dropdown: 'search-engine-dropdown', button: 'search-engine-button' },
   ];
   function closeDropdowns(event) {
     dropdowns.forEach(({ dropdown, button }) => {
@@ -77,23 +104,22 @@
         !dropdownElement.contains(event.target) &&
         !buttonElement.contains(event.target)
       ) {
-        dropdownElement.classList.add("hidden");
+        dropdownElement.classList.add('hidden');
       }
     });
   }
   onMount(() => {
     dropdowns.forEach(({ dropdown, button }) => {
-      document.getElementById(button).addEventListener("click", function () {
+      document.getElementById(button).addEventListener('click', function () {
         const dropdownElement = document.getElementById(dropdown);
-        dropdownElement.classList.toggle("hidden");
+        dropdownElement.classList.toggle('hidden');
       });
     });
-    document.addEventListener("click", closeDropdowns);
+    document.addEventListener('click', closeDropdowns);
     return () => {
-      document.removeEventListener("click", closeDropdowns);
+      document.removeEventListener('click', closeDropdowns);
     };
   });
-  
 </script>
 
 <div class="control-panel border-b border-border bg-background pb-3">
@@ -116,7 +142,7 @@
       aria-labelledby="project-button"
       tabindex="-1"
     >
-      <div role="none" class="flex flex-col divide-y-2  w-full">
+      <div role="none" class="flex flex-col divide-y-2 w-full">
         <button
           class="flex gap-2 items-center text-sm px-4 py-3 w-full"
           on:click|preventDefault={createNewProject}
@@ -127,7 +153,8 @@
         {#if $projectList !== null}
           {#each $projectList as project}
             <div
-              class="flex items-center px-4 hover:bg-black/20 transition-colors">
+              class="flex items-center px-4 hover:bg-black/20 transition-colors"
+            >
               <button
                 href="#"
                 class="flex gap-2 items-center text-sm py-3 w-full h-full overflow-x-visible"
@@ -146,22 +173,27 @@
       </div>
     </div>
   </div>
-  <div
-    class=""
-    style="display: flex; align-items: center; gap: 20px"
-  >
+  <div class="" style="display: flex; align-items: center; gap: 20px">
     <div class="flex items-center gap-2 text-sm">
       <span>Internet:</span>
-      <span class=" size-3 rounded-full" class:online={$internet} class:offline={!$internet}></span>
+      <span
+        class="green-dot-icon size-3 rounded-full"
+        class:online={$internet}
+        class:offline={!$internet}
+      ></span>
+      <span class="green-dot-icon"></span>
     </div>
 
     <Seperator />
 
     <div class="flex items-center gap-2 text-sm">
       <span>Token Usage:</span>
-      <span id="token-count" class="token-count-animation text-foreground">{$tokenUsage}</span>
+      <span id="token-count" class="token-count-animation text-foreground"
+        >{$tokenUsage}</span
+      >
     </div>
-    
+    <Seperator />
+
     <div class="relative inline-block text-left">
       <div>
         <button
