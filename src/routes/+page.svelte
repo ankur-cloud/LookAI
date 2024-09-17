@@ -82,54 +82,52 @@
   });
 </script>
 
-<div class="flex h-full flex-col flex-1 gap-4 p-4 overflow-hidden main-content">
-  <!-- <ControlPanel /> -->
-  <div class="flex h-full overflow-x-scroll">
-    <div class="flex flex-1 h-full gap-2">
-      <Resizable.PaneGroup direction="horizontal" class="max-w-full">
-        <Resizable.Pane defaultSize={50}>
-          <div class="flex flex-col gap-2 w-full h-full p-2">
-            <MessageContainer />
-            <MessageInput />
-          </div>
-        </Resizable.Pane>
-        {#if resizeEnabled}
-          <Resizable.Handle />
-        {/if}
-        <!-- // hidden for now panels  below -->
-        <div class="temp-hide">
-          <Resizable.Pane defaultSize={50}>
-            <Resizable.PaneGroup direction="vertical">
-              <Resizable.Pane defaultSize={50}>
-                <div class="flex h-full items-center justify-center p-2">
-                  <BrowserWidget />
-                </div>
-              </Resizable.Pane>
-              <!-- {#if resizeEnabled}
-                <Resizable.Handle />
-              {/if} -->
-              <Resizable.Pane defaultSize={50}>
-                <div class="flex h-full items-center justify-center p-2">
-                  <TerminalWidget />
-                </div>
-              </Resizable.Pane>
-            </Resizable.PaneGroup>
-          </Resizable.Pane>
+<!-- <div class="flex h-full flex-col flex-1 gap-4 p-4 overflow-hidden"> -->
+<!-- <ControlPanel /> -->
+<div class="flex h-full overflow-x-scroll main-content">
+  <div class="flex flex-1 min-w-[calc(50vw-120px)] h-full gap-2">
+    <Resizable.PaneGroup direction="horizontal" class="max-w-full">
+      <Resizable.Pane defaultSize={50}>
+        <div class="flex flex-col gap-2 w-full  pr-4 panel-1 ">
+          <MessageContainer />
+          <MessageInput />
         </div>
-      </Resizable.PaneGroup>
-    </div>
+      </Resizable.Pane>
+      {#if resizeEnabled}
+        <Resizable.Handle />
+      {/if}
+      <!-- <Resizable.Pane defaultSize={50}> -->
+      <!-- <Resizable.PaneGroup direction="vertical"> -->
+      <!-- <Resizable.Pane defaultSize={50}> -->
+      <!-- <div class="flex h-full items-center justify-center p-2">
+                <BrowserWidget />
+              </div> -->
+      <!-- </Resizable.Pane> -->
+      <!-- {#if resizeEnabled}
+              <Resizable.Handle />
+            {/if} -->
+      <!-- <Resizable.Pane defaultSize={50}> -->
+      <!-- <div class="flex h-full items-center justify-center p-2"> -->
+      <!-- <TerminalWidget /> -->
+      <!-- </div> -->
+      <!-- </Resizable.Pane> -->
+      <!-- </Resizable.PaneGroup> -->
+      <!-- </Resizable.Pane>   -->
+    </Resizable.PaneGroup>
   </div>
-  <div class="flex flex-col gap-2 h-full p-2">
+  <div class="flex flex-col gap-2 min-w-[calc(100vw-120px)] h-full pr-4 p-2">
     <EditorWidget />
   </div>
 </div>
 
+<!-- </div> -->
 <style>
   .main-content {
-    width: calc(100% - var(--sidebar-width));
-    padding: 1rem;
+    scrollbar-width: thin;
+    /* width: calc(100% - var(--sidebar-width)); */
+    padding: 1rem 1.5rem;
   }
-  .temp-hide {
-    display: none;
+  .panel-1  {
+    height: 90%;
   }
 </style>

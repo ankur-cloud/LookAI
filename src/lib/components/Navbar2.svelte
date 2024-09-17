@@ -349,17 +349,7 @@
             >{$tokenUsage}</span
           >
         </div>
-        <Seperator />
-        <div class="" style="display: flex; align-items: center; gap: 20px">
-          <div class="flex items-center gap-2 text-sm">
-            <span>Internet:</span>
-            <span
-              class="size-3 rounded-full green-dot"
-              class:online={$internet}
-              class:offline={!$internet}
-            ></span>
-          </div>
-        </div>
+ 
       </div>
     </div>
   </div>
