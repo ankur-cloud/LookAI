@@ -60,12 +60,6 @@
   </div>
   <div id="nav-content">
     {#each navItems as { icon, tooltip, label, route }, i}
-      <!-- <li class={$page.url.pathname == route ? 'active' : 'nonActive'}>
-          <a href={route} class="nav-button">
-            <i id="svg-icon" class="icon">{@html icon}</i>
-            <span class="nav-item">{label}</span>
-          </a>
-        </li> -->
       <a
         href={route}
         class={`nav-button ${$page.url.pathname == route ? 'active' : 'nonActive'}`}

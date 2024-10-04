@@ -1,16 +1,16 @@
 <script>
-  import { onMount } from "svelte";
-  import { Terminal } from "@xterm/xterm";
-  import { FitAddon } from "@xterm/addon-fit";
-  import { agentState } from "$lib/store";
-  import "@xterm/xterm/css/xterm.css";
+  import { onMount } from 'svelte';
+  import { Terminal } from '@xterm/xterm';
+  import { FitAddon } from '@xterm/addon-fit';
+  import { agentState } from '$lib/store';
+  import '@xterm/xterm/css/xterm.css';
 
   onMount(async () => {
     const terminalBg = getComputedStyle(document.body).getPropertyValue(
-      "--terminal-window-background"
+      '--terminal-window-background'
     );
     const terminalFg = getComputedStyle(document.body).getPropertyValue(
-      "--terminal-window-foreground"
+      '--terminal-window-foreground'
     );
 
     const terminal = new Terminal({
@@ -24,13 +24,13 @@
         innerText: terminalFg,
         cursor: terminalFg,
         selectionForeground: terminalBg,
-        selectionBackground: terminalFg
+        selectionBackground: terminalFg,
       },
     });
     const fitAddon = new FitAddon();
 
     terminal.loadAddon(fitAddon);
-    terminal.open(document.getElementById("terminal-content"));
+    terminal.open(document.getElementById('terminal-content'));
 
     fitAddon.fit();
 
@@ -39,8 +39,8 @@
     agentState.subscribe((state) => {
       if (state && state.terminal_session) {
         let command = state.terminal_session.command || 'echo "Waiting..."';
-        let output = state.terminal_session.output || "Waiting...";
-        let title = state.terminal_session.title || "CodeRunner";
+        let output = state.terminal_session.output || 'Waiting...';
+        let title = state.terminal_session.title || 'CodeRunner';
 
         // Check if the current state is different from the previous state
         if (
@@ -50,7 +50,7 @@
         ) {
           // addCommandAndOutput(command, output, title);
           if (title) {
-            document.getElementById("terminal-title").innerText = title;
+            document.getElementById('terminal-title').innerText = title;
           }
           terminal.reset();
           terminal.write(`$ ${command}\r\n\r\n${output}\r\n`);
@@ -78,10 +78,7 @@
     </div>
     <span id="terminal-title" class="text-tertiary text-sm">Code Runner</span>
   </div>
-  <div
-    id="terminal-content"
-    class="w-full h-full rounded-bl-lg bg-terminal-window-background"
-  ></div>
+  <div id="terminal-content" class="w-full h-full rounded-bl-lg"></div>
 </div>
 
 <style>
@@ -90,7 +87,6 @@
   }
   #terminal-content :global(.xterm-screen) {
     width: 100% !important;
-
   }
   #terminal-content :global(.xterm-rows) {
     width: 100% !important;

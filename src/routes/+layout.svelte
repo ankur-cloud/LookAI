@@ -1,7 +1,6 @@
 <script>
-  import Sidebar from '$lib/components/Sidebar.svelte';
   import NewSidebar from '$lib/components/NewSidebar.svelte';
-  import Navbar from '$lib/components/Navbar2.svelte';
+  import Navbar from '$lib/components/Navbar.svelte';
   import { Toaster } from '$lib/components/ui/sonner';
   import { ModeWatcher } from 'mode-watcher';
   import '../app.pcss';
@@ -9,15 +8,15 @@
 </script>
 
 <main>
-  <div>
+  <div class="app-container">
     <Navbar />
-    <div class="h-dvh flex app-container">
+    <section class="app-content">
       <Toaster />
       <ModeWatcher />
       <div>
         <NewSidebar />
       </div>
       <slot />
-    </div>
+    </section>
   </div>
 </main>

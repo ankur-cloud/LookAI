@@ -103,16 +103,12 @@
       <div class="flex items-center text-tertiary text-sm">Code Editor</div>
     {/if}
   </div>
-  <div class="h-full w-full flex">
+  <div class="h-full w-full flex card-frame bg-dark">
     <div
-      class="min-w-[260px] overflow-y-auto bg-secondary h-full text-foreground text-sm flex flex-col pt-2"
+      class="min-w-[260px] overflow-y-auto h-full text-foreground text-sm flex flex-col pt-2"
       bind:this={sidebarContainer}
-    >
-  </div>
- 
-    <div
-      class="h-full w-full rounded-bl-lg bg-terminal-window-background p-0"
-      bind:this={editorContainer}
-    />
+    ></div>
+
+    <div class="h-full w-full rounded-bl-lg p-0" bind:this={editorContainer} />
   </div>
 </div>

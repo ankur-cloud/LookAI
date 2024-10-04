@@ -1,0 +1,99 @@
+$color_1: var(--dark-grey);
+$color_2: var(--white);
+$background-color_1: var(--white);
+
+/* .btn-drowdown-elements .selected-project {
+    font-size: x-small;
+  } */
+.btn {
+  text-align: center;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  min-width: var(--btn-item-width);
+  align-items: center;
+  height: 2rem;
+  justify-content: space-between;
+  color: $color_1;
+}
+.btn-drowdown-elements {
+  display: inline-flex;
+  background-color: var(--white);
+  color: var(--dark-grey);
+  padding: 0.5rem 0.75rem;
+  gap: 0.5rem;
+  border-radius: var(--border-radius);
+  font-size: x-small;
+  text-overflow: clip;
+  width: fit-content;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  scrollbar-width: none;
+  &:hover {
+    background-color: rgb(0 0 0 / 0.2);
+  }
+  .selected-project {
+    font-size: x-small;
+  }
+  .search-engine-list-btn {
+    width: 100%;
+    text-align: start;
+  }
+  .peoject_name {
+    text-align: start;
+    width: 85%;
+  }
+  .peoject_icon {
+    padding: 0.25rem;
+  }
+}
+.modal-dd-header {
+  width: 100%;
+  color: $color_1;
+  padding: 0.5rem 0.75rem;
+  font-size: smaller;
+  font-weight: 500;
+}
+.menu {
+  // top: 25%;
+  position: relative;
+}
+.menu-bar {
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  color: $color_2;
+  height: 100%;
+}
+.dropdown {
+  background-color: $background-color_1;
+  border-radius: var(--border-radius);
+  overflow-y: auto;
+  transform-origin: top left;
+  min-width: var(--btn-item-width);
+  max-height: 24rem;
+  margin-top: 0.5rem;
+  position: absolute;
+  left: 0px;
+  opacity: 1;
+  box-shadow: var(--shadow);
+  transition: 0.1s ease-in-out;
+  z-index: 100;
+}
+@media (max-width: 1100px) {
+  .dropdown {
+    display: none;
+    min-width: 100%;
+    border: none !important;
+    border-radius: var(--border-radius);
+    position: static;
+    top: 0;
+    left: 0;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    box-shadow: none;
+  }
+}

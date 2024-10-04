@@ -5,6 +5,7 @@
   import { setMode } from 'mode-watcher';
   import * as Select from '$lib/components/ui/select/index.js';
   import Seperator from '../../lib/components/ui/Seperator.svelte';
+  import SettingsMenu from '../../../src/lib/components/SettingsMenu.svelte';
 
   let settings = {};
   let editMode = false;
@@ -75,7 +76,8 @@
 </script>
 
 <div class="p-4 h-full w-full gap-8 flex flex-col overflow-y-auto">
-  <h1 class="text-2xl">Settings</h1>
+  <h1 class="text-xl">Settings</h1>
+  <SettingsMenu />
   <div class="flex flex-col w-full text-sm">
     <Tabs.Root value="apikeys" class="w-full flex flex-col justify-start ms-2">
       <Tabs.List class="ps-0">
@@ -111,7 +113,7 @@
           {#if !editMode}
             <button
               id="btn-edit"
-              class="p-2 border-2 rounded-lg flex gap-3 items-center hover:bg-gray-200"
+              class="p-2 border-2 rounded-lg flex gap-3 items-center btn-settings"
               on:click={edit}
             >
               <i class="fas fa-edit"></i>
@@ -120,7 +122,7 @@
           {:else}
             <button
               id="btn-save"
-              class="p-2 border-2 rounded-lg flex gap-3 items-center hover:bg-gray-200"
+              class="p-2 border-2 rounded-lg flex gap-3 items-center btn-settings"
               on:click={save}
             >
               <i class="fas fa-save"></i>
@@ -154,7 +156,7 @@
           {#if !editMode}
             <button
               id="btn-edit"
-              class="p-2 border-2 rounded-lg flex gap-3 items-center hover:bg-gray-200"
+              class="p-2 border-2 rounded-lg flex gap-3 items-center btn-settings"
               on:click={edit}
             >
               <i class="fas fa-edit"></i>
@@ -163,7 +165,7 @@
           {:else}
             <button
               id="btn-save"
-              class="p-2 border-2 rounded-lg flex gap-3 items-center hover:bg-gray-200"
+              class="p-2 border-2 rounded-lg flex gap-3 items-center btn-settings"
               on:click={save}
             >
               <i class="fas fa-save"></i>
@@ -228,7 +230,7 @@
           <div>Reset layout</div>
           <div>
             <button
-              class="min-w-[180px] p-2 border-2 rounded-lg flex gap-3 items-center justify-between button-custom hover:bg-secondary"
+              class="min-w-[180px] p-2 border-2 rounded-lg flex gap-3 items-center justify-between button-custom btn-settings hover:bg-secondary"
               on:click={() => {
                 localStorage.removeItem('paneforge:default');
               }}
@@ -242,3 +244,9 @@
     </Tabs.Root>
   </div>
 </div>
+
+<style>
+  .btn-settings:hover {
+    background-color: var(--hover-color);
+  }
+</style>

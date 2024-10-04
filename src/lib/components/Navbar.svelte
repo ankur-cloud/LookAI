@@ -2,154 +2,136 @@
   import '../../../src/app-main.css';
   import { Icons } from './../icons';
   import 'boxicons/css/boxicons.min.css';
-  import { onMount } from 'svelte';
-  import {
-    projectList,
-    modelList,
-    internet,
-    tokenUsage,
-    agentState,
-    messages,
-    searchEngineList,
-  } from '$lib/store';
-  import {
-    createProject,
-    fetchMessages,
-    fetchInitialData,
-    deleteProject,
-    fetchAgentState,
-    fetchProjectFiles,
-  } from '$lib/api';
-  import { get } from 'svelte/store';
-  import Seperator from './ui/Seperator.svelte';
+  import { tokenUsage } from '$lib/store';
+  import './Navbar.scss';
 
-  let selectedProject;
-  let selectedModel;
-  let selectedSearchEngine;
+  // let selectedProject;
+  // let selectedModel;
+  // let selectedSearchEngine;
 
-  let projectButton = 'project-button';
-  let modelButton = 'model-button';
-  let searchEngineButton = 'search-engine-button';
+  // let projectButton = 'project-button';
+  // let modelButton = 'model-button';
+  // let searchEngineButton = 'search-engine-button';
 
-  let closeIconSelectVisible = {
-    [projectButton]: false,
-    [modelButton]: false,
-    [searchEngineButton]: false,
-  };
+  // let closeIconSelectVisible = {
+  //   [projectButton]: false,
+  //   [modelButton]: false,
+  //   [searchEngineButton]: false,
+  // };
 
-  const checkListAndSetItem = (list, itemKey, defaultItem) => {
-    if (get(list) && get(list).length > 0) {
-      const item = localStorage.getItem(itemKey);
-      return item ? item : defaultItem;
-    } else {
-      localStorage.setItem(itemKey, '');
-      return defaultItem;
-    }
-  };
+  // const checkListAndSetItem = (list, itemKey, defaultItem) => {
+  //   if (get(list) && get(list).length > 0) {
+  //     const item = localStorage.getItem(itemKey);
+  //     return item ? item : defaultItem;
+  //   } else {
+  //     localStorage.setItem(itemKey, '');
+  //     return defaultItem;
+  //   }
+  // };
 
-  selectedProject = checkListAndSetItem(
-    projectList,
-    'selectedProject',
-    'Select Project'
-  );
-  selectedModel = checkListAndSetItem(
-    modelList,
-    'selectedModel',
-    'Select Model'
-  );
-  selectedSearchEngine = checkListAndSetItem(
-    searchEngineList,
-    'selectedSearchEngine',
-    'Select Search Engine'
-  );
+  // selectedProject = checkListAndSetItem(
+  //   projectList,
+  //   'selectedProject',
+  //   'Select Project'
+  // );
+  // selectedModel = checkListAndSetItem(
+  //   modelList,
+  //   'selectedModel',
+  //   'Select Model'
+  // );
+  // selectedSearchEngine = checkListAndSetItem(
+  //   searchEngineList,
+  //   'selectedSearchEngine',
+  //   'Select Search Engine'
+  // );
 
-  function selectProject(project) {
-    selectedProject = project;
-    localStorage.setItem('selectedProject', project);
-    fetchMessages();
-    fetchAgentState();
-    fetchProjectFiles();
-    document.getElementById('project-dropdown').classList.add('hidden');
-  }
+  // function selectProject(project) {
+  //   selectedProject = project;
+  //   localStorage.setItem('selectedProject', project);
+  //   fetchMessages();
+  //   fetchAgentState();
+  //   fetchProjectFiles();
+  //   document.getElementById('project-dropdown').classList.add('hidden');
+  // }
 
-  function selectModel(model) {
-    selectedModel = `${model[0]}`;
-    localStorage.setItem('selectedModel', model[1]);
-    document.getElementById('model-dropdown').classList.add('hidden');
-  }
+  // function selectModel(model) {
+  //   selectedModel = `${model[0]}`;
+  //   localStorage.setItem('selectedModel', model[1]);
+  //   document.getElementById('model-dropdown').classList.add('hidden');
+  // }
 
-  function selectSearchEngine(searchEngine) {
-    selectedSearchEngine = searchEngine;
-    localStorage.setItem('selectedSearchEngine', searchEngine);
-    document.getElementById('search-engine-dropdown').classList.add('hidden');
-  }
+  // function selectSearchEngine(searchEngine) {
+  //   selectedSearchEngine = searchEngine;
+  //   localStorage.setItem('selectedSearchEngine', searchEngine);
+  //   document.getElementById('search-engine-dropdown').classList.add('hidden');
+  // }
 
-  async function createNewProject() {
-    const projectName = prompt('Enter the project name:');
-    if (projectName) {
-      await createProject(projectName);
-      61(projectName);
-    }
-  }
-  async function deleteproject(project) {
-    if (confirm(`Are you sure you want to delete ${project}?`)) {
-      await deleteProject(project);
-      await fetchInitialData();
-      messages.set([]);
-      agentState.set(null);
-      tokenUsage.set(0);
-      selectedProject = 'Select Project';
-      localStorage.setItem('selectedProject', '');
-    }
-  }
+  // async function createNewProject() {
+  //   const projectName = prompt('Enter the project name:');
+  //   if (projectName) {
+  //     await createProject(projectName);
+  //     61(projectName);
+  //   }
+  // }
+  // async function deleteproject(project) {
+  //   if (confirm(`Are you sure you want to delete ${project}?`)) {
+  //     await deleteProject(project);
+  //     await fetchInitialData();
+  //     messages.set([]);
+  //     agentState.set(null);
+  //     tokenUsage.set(0);
+  //     selectedProject = 'Select Project';
+  //     localStorage.setItem('selectedProject', '');
+  //   }
+  // }
 
-  const dropdowns = [
-    {
-      dropdown: 'project-dropdown',
-      button: projectButton,
-    },
-    {
-      dropdown: 'model-dropdown',
-      button: modelButton,
-    },
-    {
-      dropdown: 'search-engine-dropdown',
-      button: searchEngineButton,
-    },
-  ];
+  // const dropdowns = [
+  //   {
+  //     dropdown: 'project-dropdown',
+  //     button: projectButton,
+  //   },
+  //   {
+  //     dropdown: 'model-dropdown',
+  //     button: modelButton,
+  //   },
+  //   {
+  //     dropdown: 'search-engine-dropdown',
+  //     button: searchEngineButton,
+  //   },
+  // ];
 
-  function closeDropdowns(event) {
-    dropdowns.forEach(({ dropdown, button }) => {
-      const dropdownElement = document.getElementById(dropdown);
-      const buttonElement = document.getElementById(button);
+  // function closeDropdowns(event) {
+  //   dropdowns.forEach(({ dropdown, button }) => {
+  //     const dropdownElement = document.getElementById(dropdown);
+  //     const buttonElement = document.getElementById(button);
 
-      if (
-        dropdownElement &&
-        buttonElement &&
-        !dropdownElement.contains(event.target) &&
-        !buttonElement.contains(event.target)
-      ) {
-        dropdownElement.classList.add('hidden');
-        closeIconSelectVisible[button] = false;
-      }
-    });
-  }
-  onMount(() => {
-    dropdowns.forEach(({ dropdown, button }) => {
-      document.getElementById(button).addEventListener('click', function () {
-        const dropdownElement = document.getElementById(dropdown);
-        closeIconSelectVisible[button] = !closeIconSelectVisible[button];
+  //     if (
+  //       dropdownElement &&
+  //       buttonElement &&
+  //       !dropdownElement.contains(event.target) &&
+  //       !buttonElement.contains(event.target)
+  //     ) {
+  //       dropdownElement.classList.add('hidden');
+  //       closeIconSelectVisible[button] = false;
+  //     }
+  //   });
+  // }
+  // onMount(() => {
+  //   dropdowns.forEach(({ dropdown, button }) => {
+  //     document.getElementById(button).addEventListener('click', function () {
+  //       const dropdownElement = document.getElementById(dropdown);
+  //       closeIconSelectVisible[button] = !closeIconSelectVisible[button];
 
-        dropdownElement.classList.toggle('hidden');
-      });
-    });
-    document.addEventListener('click', closeDropdowns);
-    return () => {
-      document.removeEventListener('click', closeDropdowns);
-    };
-  });
-  console.log('closeIconSelectVisible', closeIconSelectVisible);
-  console.log('internet', internet);
+  //       dropdownElement.classList.toggle('hidden');
+  //     });
+  //   });
+  //   document.addEventListener('click', closeDropdowns);
+  //   return () => {
+  //     document.removeEventListener('click', closeDropdowns);
+  //   };
+  // });
+  // console.log('closeIconSelectVisible', closeIconSelectVisible);
+  // console.log('internet', internet);
 </script>
 
 <header id="nav-menu" aria-label="navigation bar">
@@ -158,7 +140,7 @@
       <a class="logo" href="/">
         <i class="icon">{@html Icons.HOME}</i>
       </a>
-      <nav class="menu">
+      <!-- <nav class="menu">
         <ul class="menu-bar">
           <li>
             <div class="dropdown-menu relative inline-block">
@@ -338,7 +320,7 @@
             </div>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
 
     <div class="nav-end">
@@ -349,145 +331,7 @@
             >{$tokenUsage}</span
           >
         </div>
- 
       </div>
     </div>
   </div>
 </header>
-
-<style>
-  .btn {
-    text-align: center;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    min-width: var(--btn-item-width);
-    align-items: center;
-    height: 2rem;
-    justify-content: space-between;
-    color: var(--dark-grey);
-  }
-  .btn-drowdown-elements {
-    display: inline-flex;
-    background-color: var(--white);
-    color: var(--dark-grey);
-    padding: 0.5rem 0.75rem;
-    gap: 0.5rem;
-    border-radius: var(--border-radius);
-    font-size: x-small;
-
-    width: fit-content;
-  }
-  .btn-drowdown-elements .selected-project {
-    font-size: x-small;
-  }
-
-  .menu {
-    top: 25%;
-    position: relative;
-  }
-  .menu-bar {
-    gap: 0.5rem;
-  }
-  .logo {
-    /* margin-right: 1.5rem; */
-    width: 12rem;
-  }
-
-  #nav-menu {
-    border-bottom: var(--border);
-  }
-
-  .hidden {
-    background-color: brown;
-  }
-
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 100%;
-    column-gap: 2rem;
-    height: 6rem;
-    padding: 1.2rem 3rem;
-    background: linear-gradient(
-      135deg,
-      rgba(2, 5, 112, 1) 60%,
-      rgb(38, 118, 216)
-    );
-    -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-    color: rgb(2, 5, 112);
-  }
-
-  .nav-start,
-  .nav-end,
-  .menu-bar,
-  .right-container {
-    display: flex;
-    align-items: center;
-    color: var(--white);
-    height: 100%;
-  }
-
-  .dropdown {
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    overflow-y: auto;
-    transform-origin: top left;
-    min-width: var(--btn-item-width);
-    max-height: 24rem;
-    margin-top: 0.5rem;
-    position: absolute;
-    left: 0px;
-    opacity: 1;
-    /* transform: scale(0.97) translateX(-5px); */
-    box-shadow: var(--shadow);
-    transition: 0.1s ease-in-out;
-    z-index: 100;
-  }
-
-  .right-container {
-    display: flex;
-    align-items: center;
-    column-gap: 1rem;
-  }
-  .right-container span {
-    font-size: small;
-    font-weight: 500;
-    color: var(--white);
-  }
-  .green-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: #00f00c;
-    border-radius: 50%;
-  }
-  @media (max-width: 1100px) {
-    .container {
-      padding: 1.2rem;
-    }
-
-    .dropdown {
-      display: none;
-      min-width: 100%;
-      border: none !important;
-      border-radius: var(--border-radius);
-      position: static;
-      top: 0;
-      left: 0;
-      visibility: visible;
-      opacity: 1;
-      transform: none;
-      box-shadow: none;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .right-container {
-      display: none;
-    }
-  }
-</style>

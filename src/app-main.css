@@ -24,8 +24,7 @@
   --medium-grey: #636363;
   --light-grey: #f7f7f7;
   --light-grey-body: rgb(237 237 237 / 80%);
-  --ash: #f4f4f4;
-  --primary-color: #2b72fb;
+  --primary-color: #003297;
   --white: #fff;
   --border: 1px solid var(--light-grey);
   --shadow: rgba(53, 37, 37, 0.05) 0px 6px 24px 0px,
@@ -38,21 +37,44 @@
     rgb(51, 51, 51, 0.8),
     transparent
   );
+  /* navbar  */
+  --navbar-height: 6rem;
+
   /* sidebar   */
   --sidebar-width: 16rem;
   --minimun-sidebar-width: 5rem;
-  --sidebar-background: #9c88ff;
   --sidebar-width-min: 5rem;
-  --sidenar-dark-primary: #18283b;
-  --sidenar-dark-secondary: #2c3e50;
-  --sidenar-light-primary: #f5f6fa;
-  --sidenar-light-secondary: #8392a5;
+
+  --hover-color: rgb(0 0 0 / 0.2);
+}
+
+.card-frame {
+  border: 1px solid #eee !important;
+  transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  box-shadow:
+    0 1px 3px #0000001f,
+    0 1px 2px #0000003d;
+}
+
+.bg-light {
+  background-color: var(--white);
+}
+
+.bg-dark {
+  background-color: #eff4ed;
+  /* background-color: var(--light-grey); */
 }
 
 .app-container {
-  /* max-width: 95%; */
+  overflow: hidden;
+  height: 100dvh;
+}
+
+.app-content {
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
-  margin: 1rem auto;
+  margin: 1rem;
+  height: calc(100% - var(--navbar-height));
+  display: flex;
 }
