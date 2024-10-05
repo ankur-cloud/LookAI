@@ -1,49 +1,19 @@
 <script>
-  import { messages } from "$lib/store";
+  import { messages } from '$lib/store';
   import { afterUpdate } from 'svelte';
-  import { writable } from 'svelte/store';
-  import { JsonView } from '@zerodevx/svelte-json-view';
+
+  function isJsonString(str) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 
   let messageContainer;
   let previousMessageCount = 0;
-  // const messages = writable([
-  //   {
-  //     from_LookAI: true,
-  //     timestamp: new Date().getTime(),
-  //     message: 'Hello, how can I assist you today?',
-  //   },
-  //   {
-  //     from_LookAI: false,
-  //     timestamp: new Date().getTime() + 10000,
-  //     message: 'I have a question about the weather forecast for this weekend.',
-  //   },
-  //   {
-  //     from_LookAI: true,
-  //     timestamp: new Date().getTime() + 20000,
-  //     message: {
-  //       glossary: {
-  //         title: 'example glossary',
-  //         GlossDiv: {
-  //           title: 'S',
-  //           GlossList: {
-  //             GlossEntry: {
-  //               ID: 'SGML',
-  //               SortAs: 'SGML',
-  //               GlossTerm: 'Standard Generalized Markup Language',
-  //               Acronym: 'SGML',
-  //               Abbrev: 'ISO 8879:1986',
-  //               GlossDef: {
-  //                 para: 'A meta-markup language, used to create markup languages such as DocBook.',
-  //                 GlossSeeAlso: ['GML', 'XML'],
-  //               },
-  //               GlossSee: 'markup',
-  //             },
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // ]);
+
   afterUpdate(() => {
     if ($messages && $messages.length > previousMessageCount) {
       messageContainer.scrollTop = messageContainer.scrollHeight;
@@ -59,9 +29,9 @@
 >
   {#if $messages !== null}
     <div class="flex flex-col divide-y-2">
-      {#each $messages as message}
+      {#each $messages as messageObj}
         <div class="flex items-start gap-2 px-2 py-4">
-          {#if message.from_LookAI}
+          {#if messageObj.from_LookAI}
             <img
               src="/assets/LookAI-avatar_23.svg"
               alt="LookAI's Avatar"
@@ -78,21 +48,43 @@
           {/if}
           <div class="flex flex-col w-full text-sm">
             <p class="text-xs text-gray-400">
-              {message.from_LookAI ? 'LookAI' : 'You'}
+              {messageObj.from_LookAI ? 'LookAI' : 'You'}
               <span class="timestamp"
-                >{new Date(message.timestamp).toLocaleTimeString()}</span
+                >{new Date(messageObj.timestamp).toLocaleTimeString()}</span
               >
             </p>
-            {#if message.from_LookAI}
-              <div
-                class="w-full p-4 rounded-lg leading-relaxed card-frame bg-dark"
-                contenteditable="false"
-              >
-                <JsonView json={message.message} />
-              </div>
-            {:else if /https?:\/\/[^\s]+/.test(message.message)}
+            {#if messageObj.from_LookAI}
+              {#if isJsonString(messageObj?.message?.json_string)}
+                <div
+                  class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
+                  contenteditable="false"
+                >
+                  {#if JSON.parse(messageObj.message.json_string)[0].operation === 'write'}
+                    <p>
+                      Writing to
+                      <span class="italic">
+                        {JSON.parse(messageObj.message.json_string)[0].path}
+                      </span>
+                    </p>
+                  {/if}
+
+                  <pre class="mt-4">
+                <code contenteditable="false"
+                      >{JSON.parse(messageObj.message.json_string)[0]
+                        .code}</code
+                    >
+              </pre>
+                </div>
+              {:else}
+                <div
+                  class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
+                  contenteditable="false"
+                  bind:innerHTML={messageObj.message}
+                ></div>
+              {/if}c
+            {:else if /https?:\/\/[^\s]+/.test(messageObj.message)}
               <div class="w-full cursor-auto" contenteditable="false">
-                {@html message.message.replace(
+                {@html messageObj.message.replace(
                   /(https?:\/\/[^\s]+)/g,
                   '<u><a href="$1" target="_blank" style="font-weight: bold;">$1</a></u>'
                 )}
@@ -101,7 +93,7 @@
               <div
                 class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
                 contenteditable="false"
-                bind:innerHTML={message.message}
+                bind:innerHTML={messageObj.message}
               ></div>
             {/if}
           </div>

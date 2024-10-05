@@ -30,7 +30,6 @@
   "dependencies": {
     "@xterm/addon-fit": "^0.10.0",
     "@xterm/xterm": "^5.5.0",
-    "@zerodevx/svelte-json-view": "^1.0.10",
     "bits-ui": "^0.21.2",
     "boxicons": "^2.1.4",
     "clsx": "^2.1.0",
