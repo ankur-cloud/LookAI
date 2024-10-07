@@ -1,6 +1,6 @@
 <script>
   import { messages } from '$lib/store';
-  import { afterUpdate } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
 
   function isJsonString(str) {
     try {
@@ -10,9 +10,22 @@
     }
     return true;
   }
-
   let messageContainer;
   let previousMessageCount = 0;
+
+  // Dummy data for messages
+  const dummyMessages = [
+    {
+      from_LookAI: true,
+      message: { command: 'python sum_two_numbers.py', shell: true },
+      timestamp: '2024-10-05 20:57:34',
+    },
+  ];
+
+  // Populate the messages store with dummy data on mount
+  // onMount(() => {
+  //   messages.set(dummyMessages);
+  // });
 
   afterUpdate(() => {
     if ($messages && $messages.length > previousMessageCount) {
@@ -69,7 +82,7 @@
                   {/if}
 
                   <pre class="mt-4">
-                <code contenteditable="false"
+                            <code contenteditable="false"
                       >{JSON.parse(messageObj.message.json_string)[0]
                         .code}</code
                     >
@@ -79,8 +92,10 @@
                 <div
                   class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
                   contenteditable="false"
-                  bind:innerHTML={messageObj.message}
-                ></div>
+                >
+                  <pre>{messageObj.message &&
+                      JSON.stringify(messageObj.message, null, 2)}</pre>
+                </div>
               {/if}
             {:else if /https?:\/\/[^\s]+/.test(messageObj.message)}
               <div class="w-full cursor-auto" contenteditable="false">

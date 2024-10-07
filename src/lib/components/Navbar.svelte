@@ -41,7 +41,7 @@
         >
           {#each dummyData as element, index}
             <div class="stage ">
-              <div class="step-icon">{index}</div>
+              <div class="step-icon">{index+1}</div>
               <div class="step-content text-white-900">
                 <p>{element.name}.</p>
               </div>
