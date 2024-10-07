@@ -100,12 +100,12 @@
       <!-- <Resizable.PaneGroup direction="vertical"> -->
       <!-- <Resizable.Pane defaultSize={50}> -->
       <!-- <div class="flex h-full items-center justify-center p-2">
-                <BrowserWidget />
-              </div> -->
+                  <BrowserWidget />
+                </div> -->
       <!-- </Resizable.Pane> -->
       <!-- {#if resizeEnabled}
-              <Resizable.Handle />
-            {/if} -->
+                <Resizable.Handle />
+              {/if} -->
       <!-- <Resizable.Pane defaultSize={50}> -->
       <!-- <div class="flex h-full items-center justify-center p-2"> -->
       <!-- <TerminalWidget /> -->
@@ -130,8 +130,5 @@
     /* to account for sidebar left shift by 1rem  */
     margin-left: 1rem;
     margin-top: 1rem;
-  }
-  .panel-1 {
-    /* height: 90%; */
   }
 </style>

@@ -81,7 +81,7 @@
                   contenteditable="false"
                   bind:innerHTML={messageObj.message}
                 ></div>
-              {/if}c
+              {/if}
             {:else if /https?:\/\/[^\s]+/.test(messageObj.message)}
               <div class="w-full cursor-auto" contenteditable="false">
                 {@html messageObj.message.replace(
