@@ -17,7 +17,8 @@
   const dummyMessages = [
     {
       from_LookAI: true,
-      message: { command: 'python sum_two_numbers.py', shell: true },
+      message:
+        ' if ($messages && $messages.length > previousMessageCount) if ($messages && $messages.length > previousMessageCount)',
       timestamp: '2024-10-05 20:57:34',
     },
   ];
@@ -86,15 +87,23 @@
                       >{JSON.parse(messageObj.message.json_string)[0]
                         .code}</code
                     >
-              </pre>
+                </pre>
                 </div>
-              {:else}
+              {:else if typeof messageObj.message === 'object'}
                 <div
                   class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
                   contenteditable="false"
                 >
                   <pre>{messageObj.message &&
+                      typeof messageObj.message === 'obj' &&
                       JSON.stringify(messageObj.message, null, 2)}</pre>
+                </div>
+              {:else if typeof messageObj.message === 'string'}
+                <div
+                  class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
+                  contenteditable="false"
+                >
+                  {messageObj.message}
                 </div>
               {/if}
             {:else if /https?:\/\/[^\s]+/.test(messageObj.message)}

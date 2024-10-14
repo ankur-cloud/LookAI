@@ -62,7 +62,7 @@
     {#each navItems as { icon, tooltip, label, route }, i}
       <a
         href={route}
-        class={`nav-button ${$page.url.pathname == route ? 'active' : 'nonActive'}`}
+        class={`sidebar-button  ${$page.url.pathname == route ? 'active' : 'nonActive'}`}
       >
         <i class="icon">{@html icon}</i>
         <span class="nav-item">{label}</span>

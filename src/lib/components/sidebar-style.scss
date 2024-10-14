@@ -148,22 +148,21 @@ label[for='nav-toggle'] {
   &::-webkit-scrollbar-button {
     height: 1rem;
   }
-}
-a:hover {
-  background-color: var(--white);
-
-  color: var(--dark-grey);
-}
-a.active {
-  background: var(--selected-sidebar-primary);
-  color: var(--white);
-  box-shadow: 0 0 0 1rem var(--light-grey);
+  a:hover {
+    background-color: var(--white);
+    color: var(--dark-grey);
+  }
+  a.active {
+    background: var(--selected-sidebar-primary);
+    color: var(--white);
+    box-shadow: 0 0 0 1rem var(--light-grey);
+  }
 }
 
 a.active .icon {
   color: var(--white);
 }
-.nav-button {
+.sidebar-button {
   position: relative;
   padding: 0.25rem 0.5rem;
   height: 3.375rem;
