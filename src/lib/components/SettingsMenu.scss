@@ -1,99 +1,120 @@
-$color_1: var(--dark-grey);
-$color_2: var(--white);
-$background-color_1: var(--white);
+@use '@material/linear-progress/mixins' as linear-progress;
+@use '@material/theme/color-palette';
 
-/* .btn-drowdown-elements .selected-project {
-    font-size: x-small;
-  } */
-.btn {
-  text-align: center;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  min-width: var(--btn-item-width);
-  align-items: center;
-  height: 2rem;
-  justify-content: space-between;
-  color: $color_1;
-}
-.btn-drowdown-elements {
-  display: inline-flex;
-  background-color: var(--white);
-  color: var(--dark-grey);
-  padding: 0.5rem 0.75rem;
-  gap: 0.5rem;
-  border-radius: var(--border-radius);
-  font-size: x-small;
-  text-overflow: clip;
-  width: fit-content;
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-  scrollbar-width: none;
-  &:hover {
-    background-color: rgb(0 0 0 / 0.2);
-  }
-  .selected-project {
-    font-size: x-small;
-  }
-  .search-engine-list-btn {
-    width: 100%;
-    text-align: start;
-  }
-  .peoject_name {
-    text-align: start;
-    width: 85%;
-  }
-  .peoject_icon {
-    padding: 0.25rem;
-  }
-}
-.modal-dd-header {
-  width: 100%;
-  color: $color_1;
-  padding: 0.5rem 0.75rem;
-  font-size: smaller;
-  font-weight: 500;
-}
-.menu {
-  // top: 25%;
-  position: relative;
-}
+// banner items start
+
 .menu-bar {
-  gap: 0.5rem;
   display: flex;
-  align-items: center;
-  color: $color_2;
-  height: 100%;
+  align-items: flex-end;
+  height: 4rem;
 }
-.dropdown {
-  background-color: $background-color_1;
-  border-radius: var(--border-radius);
-  overflow-y: auto;
-  transform-origin: top left;
-  min-width: var(--btn-item-width);
-  max-height: 24rem;
-  margin-top: 0.5rem;
-  position: absolute;
-  left: 0px;
-  opacity: 1;
-  box-shadow: var(--shadow);
-  transition: 0.1s ease-in-out;
-  z-index: 100;
-}
-@media (max-width: 1100px) {
-  .dropdown {
-    display: none;
-    min-width: 100%;
-    border: none !important;
-    border-radius: var(--border-radius);
-    position: static;
-    top: 0;
-    left: 0;
-    visibility: visible;
-    opacity: 1;
-    transform: none;
-    box-shadow: none;
+.mdc-banner {
+  font-size: x-small;
+  padding-left: 3rem;
+  height: 4rem;
+  .mdc-banner__content {
+    width: 100%;
+    max-width: 100%;
+    .mdc-banner__actions {
+      width: 100%;
+      align-items: center;
+      .steps-container {
+        width: 100%;
+        height: 2rem;
+        --primary: rgba(2, 5, 112, 0.4) !important;
+        .step {
+          background-color: var(--primary-color) !important;
+        }
+        .steps__label {
+          margin-top: 0 !important;
+          text-align: center;
+          position: relative;
+          bottom: 50%;
+          left: 80%;
+          .text-primary {
+            color: rgb(255, 255, 255) !important;
+          }
+        }
+      }
+    }
   }
 }
+
+.project-dropdown-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  ul li {
+    width: 70%;
+  }
+  .material-icons {
+    font-size: 1.5rem;
+  }
+}
+
+.shaped-outlined.mdc-select--with-leading-icon
+  .mdc-notched-outline:not(.mdc-notched-outline--notched)
+  .mdc-floating-label {
+  left: 0.5rem;
+}
+
+.shaped-outlined {
+  border-radius: 1rem;
+  font-size: x-small;
+
+  .mdc-select__anchor {
+    border-radius: 1rem;
+    font-size: x-small;
+    height: 1.6rem;
+    width: 10rem;
+    .mdc-select__selected-text-container {
+      .mdc-select__selected-text {
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  .mdc-deprecated-list-item {
+    height: 2rem;
+    width: 100%;
+    font-size: small;
+  }
+
+  .mdc-select__menu {
+    height: 12rem;
+    max-height: 15rem;
+  }
+
+  .mdc-notched-outline {
+    .mdc-notched-outline__leading {
+      border-radius: 1rem 0 0 1rem;
+      width: 1rem;
+    }
+    .mdc-notched-outline__trailing {
+      border-radius: 0 1rem 1rem 0;
+    }
+    .mdc-notched-outline__notch {
+      max-width: calc(100% - 1rem * 2);
+    }
+  }
+}
+
+//banner items end
+
+// navbar menus start
+
+.model-select-menu .mdc-menu {
+  padding: 0.5rem 0.75rem;
+  transform-origin: top right !important;
+  right: 1rem;
+  top: 2rem !important;
+  height: 20rem;
+  max-height: 20rem;
+}
+.search-engine-select-menu .mdc-menu {
+  transform-origin: top right !important;
+  top: 2rem !important;
+  height: 15rem;
+}
+
+// navbar menus end

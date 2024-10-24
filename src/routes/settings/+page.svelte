@@ -77,7 +77,7 @@
 
 <div class="p-4 h-full w-full gap-8 flex flex-col overflow-y-auto">
   <h1 class="text-xl">Settings</h1>
-  <SettingsMenu />
+  <!-- <SettingsMenu /> -->
   <div class="flex flex-col w-full text-sm">
     <Tabs.Root value="apikeys" class="w-full flex flex-col justify-start ms-2">
       <Tabs.List class="ps-0">

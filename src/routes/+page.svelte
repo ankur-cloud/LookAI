@@ -84,7 +84,7 @@
 
 <!-- <div class="flex h-full flex-col flex-1 gap-4 p-4 overflow-hidden"> -->
 <!-- <ControlPanel /> -->
-<div class="flex overflow-x-scroll main-content">
+<div class="flex overflow-x-scroll main-content-home">
   <div class="flex flex-1 min-w-[calc(50vw-120px)] h-full gap-2">
     <Resizable.PaneGroup direction="horizontal" class="max-w-full">
       <Resizable.Pane defaultSize={50}>
@@ -122,13 +122,13 @@
 
 <!-- </div> -->
 <style>
-  .main-content {
+  .main-content-home {
     scrollbar-width: thin;
-    height: 95%;
+    /* height: 95%;
     overflow-x: scroll;
     padding: 1rem 1.5rem;
-    /* to account for sidebar left shift by 1rem  */
     margin-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 1rem; */
+    height: 100%;
   }
 </style>
