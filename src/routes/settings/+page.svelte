@@ -6,10 +6,15 @@
   import * as Select from '$lib/components/ui/select/index.js';
   import Seperator from '../../lib/components/ui/Seperator.svelte';
   import SettingsMenu from '../../../src/lib/components/SettingsMenu.svelte';
+  import Tab, { Label } from '@smui/tab';
+  import TabBar from '@smui/tab-bar';
+  import Button, { Icon } from '@smui/button';
+  import Paper, { Content } from '@smui/paper';
 
   let settings = {};
   let editMode = false;
   let original = {};
+  let active = 'API Keys';
 
   function getSelectedTheme() {
     let theme = localStorage.getItem('mode-watcher-mode');
@@ -76,17 +81,23 @@
 </script>
 
 <div class="p-4 h-full w-full gap-8 flex flex-col overflow-y-auto">
-  <h1 class="text-xl">Settings</h1>
+  <div class="mdc-typography--headline4">Settings</div>
+
   <!-- <SettingsMenu /> -->
-  <div class="flex flex-col w-full text-sm">
-    <Tabs.Root value="apikeys" class="w-full flex flex-col justify-start ms-2">
-      <Tabs.List class="ps-0">
-        <Tabs.Trigger value="apikeys">API Keys</Tabs.Trigger>
-        <Tabs.Trigger value="endpoints">API Endpoints</Tabs.Trigger>
-        <Tabs.Trigger value="appearance">Appearance</Tabs.Trigger>
-      </Tabs.List>
-      <Seperator direction="vertical" />
-      <Tabs.Content value="apikeys" class="mt-4">
+  <TabBar
+    tabs={['API Keys', 'API Endpoints', 'Appearance']}
+    let:tab
+    bind:active
+  >
+    <!-- Note: the `tab` property is required! -->
+    <Tab {tab}>
+      <Label>{tab}</Label>
+    </Tab>
+  </TabBar>
+
+  {#if active === 'API Keys'}
+    <Paper variant="unelevated">
+      <Content>
         {#if settings['API_KEYS']}
           <div class="flex gap-4 w-full">
             <div class="flex flex-col gap-4 w-full">
@@ -108,30 +119,12 @@
               </div>
             </div>
           </div>
-        {/if}
-        <div class="flex gap-4 mt-5">
-          {#if !editMode}
-            <button
-              id="btn-edit"
-              class="p-2 border-2 rounded-lg flex gap-3 items-center btn-settings"
-              on:click={edit}
-            >
-              <i class="fas fa-edit"></i>
-              Edit
-            </button>
-          {:else}
-            <button
-              id="btn-save"
-              class="p-2 border-2 rounded-lg flex gap-3 items-center btn-settings"
-              on:click={save}
-            >
-              <i class="fas fa-save"></i>
-              Save
-            </button>
-          {/if}
-        </div>
-      </Tabs.Content>
-      <Tabs.Content value="endpoints" class="mt-4">
+        {/if}</Content
+      >
+    </Paper>
+  {:else if active === 'API Endpoints'}
+    <Paper variant="unelevated">
+      <Content>
         {#if settings['API_KEYS']}
           <div class="flex gap-4 w-full">
             <div class="flex flex-col w-full gap-4">
@@ -154,27 +147,22 @@
         {/if}
         <div class="flex gap-4 mt-5">
           {#if !editMode}
-            <button
-              id="btn-edit"
-              class="p-2 border-2 rounded-lg flex gap-3 items-center btn-settings"
-              on:click={edit}
-            >
-              <i class="fas fa-edit"></i>
-              Edit
-            </button>
+            <Button on:click={edit} variant="outlined">
+              <Icon class="material-icons">edit</Icon>
+              <Label>Edit</Label>
+            </Button>
           {:else}
-            <button
-              id="btn-save"
-              class="p-2 border-2 rounded-lg flex gap-3 items-center btn-settings"
-              on:click={save}
-            >
-              <i class="fas fa-save"></i>
-              Save
-            </button>
+            <Button on:click={save} variant="outlined">
+              <Icon class="material-icons">save</Icon>
+              <Label>Save</Label>
+            </Button>
           {/if}
         </div>
-      </Tabs.Content>
-      <Tabs.Content value="appearance" class="w-fit">
+      </Content>
+    </Paper>
+  {:else if active === 'Appearance'}
+    <Paper variant="unelevated">
+      <Content>
         <div class="flex w-full justify-between items-center my-2 gap-8">
           <div>Select a theme</div>
           <div>
@@ -240,9 +228,9 @@
             </button>
           </div>
         </div>
-      </Tabs.Content>
-    </Tabs.Root>
-  </div>
+      </Content>
+    </Paper>
+  {/if}
 </div>
 
 <style>

@@ -13,6 +13,7 @@
     "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark"
   },
   "devDependencies": {
+    "@material/typography": "^14.0.0",
     "@mdi/js": "^7.4.47",
     "@monaco-editor/loader": "^1.4.0",
     "@smui/banner": "^7.0.0",
@@ -26,7 +27,10 @@
     "@smui/linear-progress": "^7.0.0",
     "@smui/list": "^7.0.0",
     "@smui/menu": "^7.0.0",
+    "@smui/paper": "^7.0.0",
     "@smui/select": "^7.0.0",
+    "@smui/tab": "^7.0.0",
+    "@smui/tab-bar": "^7.0.0",
     "@smui/textfield": "^7.0.0",
     "@smui/top-app-bar": "^7.0.0",
     "@sveltejs/adapter-auto": "^3.0.0",

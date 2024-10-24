@@ -2,13 +2,13 @@
   import { writable } from 'svelte/store';
   import { onMount } from 'svelte';
   import {
-    // projectList,
-    // modelList,
+    projectList,
+    modelList,
     internet,
     tokenUsage,
     agentState,
     messages,
-    // searchEngineList,
+    searchEngineList,
   } from '$lib/store';
 
   import {
@@ -39,34 +39,34 @@
   let modelMenu;
   let searchMenu;
 
-  const modelList = writable({
-    'Model Category 1': [
-      ['Model 1', 'v1.0'],
-      ['Model 2', 'v2.0'],
-      ['Model 3', 'v3.0'],
-    ],
-    'Model Category 2': [
-      ['Model 4', 'v1.0'],
-      ['Model 5', 'v2.0'],
-      ['Model 6', 'v3.0'],
-    ],
-    'Model Category 3': [
-      ['Model 7', 'v1.0'],
-      ['Model 8', 'v2.0'],
-      ['Model 9', 'v3.0'],
-    ],
-  });
+  // const modelList = writable({
+  //   'Model Category 1': [
+  //     ['Model 1', 'v1.0'],
+  //     ['Model 2', 'v2.0'],
+  //     ['Model 3', 'v3.0'],
+  //   ],
+  //   'Model Category 2': [
+  //     ['Model 4', 'v1.0'],
+  //     ['Model 5', 'v2.0'],
+  //     ['Model 6', 'v3.0'],
+  //   ],
+  //   'Model Category 3': [
+  //     ['Model 7', 'v1.0'],
+  //     ['Model 8', 'v2.0'],
+  //     ['Model 9', 'v3.0'],
+  //   ],
+  // });
 
-  const searchEngineList = writable([
-    'Google 1',
-    'Yahoo   ',
-    'Duck Duck Go  ',
-    'Bing',
-    'Google 21',
-    'Yahoo2   ',
-    'Duck Duck Go 2 ',
-    'Bing2',
-  ]);
+  // const searchEngineList = writable([
+  //   'Google 1',
+  //   'Yahoo   ',
+  //   'Duck Duck Go  ',
+  //   'Bing',
+  //   'Google 21',
+  //   'Yahoo2   ',
+  //   'Duck Duck Go 2 ',
+  //   'Bing2',
+  // ]);
 
   const checkListAndSetItem = (list, itemKey, defaultItem) => {
     if (get(list) && get(list).length > 0) {
@@ -90,19 +90,16 @@
     'Select Search Engine'
   );
 
-
   function selectModel(model) {
     selectedModel = `${model[0]}`;
     localStorage.setItem('selectedModel', model[1]);
-    document.getElementById('model-dropdown').classList.add('hidden');
   }
 
   function selectSearchEngine(searchEngine) {
     selectedSearchEngine = searchEngine;
     localStorage.setItem('selectedSearchEngine', searchEngine);
-    document.getElementById('search-engine-dropdown').classList.add('hidden');
   }
-  
+
   console.log('selectedSearchEngine', selectedSearchEngine);
 </script>
 
@@ -118,8 +115,8 @@
         <SelectionGroup>
           {#each $searchEngineList as engine}
             <Item
-              on:SMUI:action={() => (selected2 = engine)}
-              selected={selected2 === engine}
+              on:SMUI:action={() => selectSearchEngine(engine)}
+              selected={selectSearchEngine === engine}
             >
               <SelectionGroupIcon>
                 <i class="material-icons">check</i>
@@ -147,8 +144,9 @@
             <Text>{modelName}</Text>
             {#each modelItems as item}
               <Item
-                on:SMUI:action={() => (selected1 = item)}
-                selected={selected1 === item}
+                on:SMUI:action={() => selectModel(item)}
+                class="search-engine-list-btn"
+                selected={selectedModel === item}
               >
                 <SelectionGroupIcon>
                   <i class="material-icons">check</i>

@@ -1,13 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --sidebar-element: rgb(0 0 0 / 60%);
     --primary: #2f3337;
     --background: #ffffff;
-    --secondary: #eff4ed;
+    --secondary: #f7f7f7;
     --tertiary: #919aa3;
     --gray-background: #4a4a4a99;
 
@@ -16,14 +16,14 @@
     --foreground-light: #9ca3ab;
     --foreground-secondary: #9ca3ab;
 
-    --btn: #2F3337;
+    --btn: #2f3337;
     --btn-active: #000000;
 
     --border: #e4e3e8;
     --seperator: #e4e3e8;
 
-    --window-outline: #E4E3E8;
-    
+    --window-outline: #e4e3e8;
+
     --browser-window-dots: #4a4a4a99;
     --browser-window-search: #f7f8fa;
     --browser-window-ribbon: #ffffff;
@@ -32,7 +32,7 @@
 
     --terminal-window-dots: #4a4a4a99;
     --terminal-window-ribbon: #ffffff;
-    --terminal-window-background: #eff4ed;
+    --terminal-window-background: #ffffff;
     --terminal-window-foreground: #313336;
 
     --slider-empty: #9ca3ab;
@@ -81,7 +81,7 @@
     --monologue-outline: #464c51;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -89,7 +89,7 @@
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* Styling for scrollbar */
 
   /* WebKit (Chrome, Safari) */
@@ -103,28 +103,28 @@
   }
   *::-webkit-scrollbar-thumb:hover {
     background: #6b7280;
-  } 
+  }
 
   /* firefox  */
   @-moz-document url-prefix() {
-  :global(*) {
-    scrollbar-width: thin;
-    scrollbar-color: #999797 #ffffff;
-  }
+    :global(*) {
+      scrollbar-width: thin;
+      scrollbar-color: #999797 #ffffff;
+    }
 
-  :global(*::-moz-scrollbar) {
-    width: 5px;
-  }
+    :global(*::-moz-scrollbar) {
+      width: 5px;
+    }
 
-  :global(*::-moz-scrollbar-thumb) {
-    background: #999797;
-    border-radius: 0.5rem;
-  }
+    :global(*::-moz-scrollbar-thumb) {
+      background: #999797;
+      border-radius: 0.5rem;
+    }
 
-  :global(*::-moz-scrollbar-thumb:hover) {
-    background: #6b7280;
+    :global(*::-moz-scrollbar-thumb:hover) {
+      background: #6b7280;
+    }
   }
-}
 
   /* Internet Explorer/Edge */
   :global(*::-ms-scrollbar) {

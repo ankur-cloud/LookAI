@@ -8,13 +8,13 @@
   import 'boxicons/css/boxicons.min.css';
   import { onDestroy, onMount } from 'svelte';
   import {
-    // projectList,
-    // modelList,
+    projectList,
+    modelList,
     internet,
     tokenUsage,
     agentState,
     messages,
-    // searchEngineList,
+    searchEngineList,
   } from '$lib/store';
   import {
     createProject,
@@ -40,13 +40,13 @@
 
   let selectedProject: string;
 
-  const projectList = writable([
-    'Project 1',
-    'Project 2',
-    'Project 3',
-    'Project 4',
-    'Project 5',
-  ]);
+  // const projectList = writable([
+  //   'Project 1',
+  //   'Project 2',
+  //   'Project 3',
+  //   'Project 4',
+  //   'Project 5',
+  // ]);
 
   const checkListAndSetItem = (
     list: any,
@@ -199,7 +199,6 @@
       {steps}
       size="2rem"
       line="2rem"
-      alert
       alertColor={'#ff00ff'}
       current={3}
       clickable={false}
