@@ -125,7 +125,7 @@
 <!-- </div> -->
 <style>
   .main-content-home {
-    scrollbar-width: thin;
+    /* scrollbar-width: thin; */
     /* height: 95%;
     overflow-x: scroll;
     padding: 1rem 1.5rem;
