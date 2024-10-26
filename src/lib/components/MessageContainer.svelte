@@ -27,16 +27,19 @@
         "To help transform your vision of a student-friendly calculator website into actionable items, let's begin by breaking down the business requirements for the project. Please confirm or elaborate on the details below:\n\n1. **Target Audience:**\n - Primary users are students, likely from high school or college.\n\n2. **Calculator Functionalities:**\n - Basic arithmetic operations (addition, subtraction, multiplication, division)\n - Scientific functions (sine, cosine, tangent, logarithms, etc.)\n - Ability to handle complex numbers and perform trigonometric calculations\n - History feature to view recent calculations\n\n3. **User Interface Design:**\n - Intuitive and user-friendly design\n - Mobile-responsive layout\n - Theme options for different UI styles (e.g., light and dark modes)\n - Clear display of results and operations\n\n4. **Additional Features:**\n - Configuration options for decimal precision\n - Error handling for invalid inputs\n - Accessibility features for diverse user needs\n\n5. **Platform and Compatibility:**\n - Web-based application accessible from any modern browser\n\n6. **Security and Privacy:**\n - Ensure calculations and history are securely handled and private to the user\n\nOnce you confirm these or provide additional details, I can proceed with crafting a user story and breakdown tasks necessary for the development process.",
       timestamp: '2024-10-17 21:14:38',
     },
-    {
-      from_LookAI: true,
-      message:
-        'The user story and tasks for the student-friendly calculator website have been successfully created in the "Agent" project on Jira. Here are the details:\n\n**User Story 1:** \n- **Title:** Develop a Student-Friendly Web-Based Calculator with Enhanced UI\n- **Description:** As a student, I want an intuitive and visually appealing calculator website that performs both basic and scientific calculations so that I can easily complete my math-related tasks without needing a physical calculator or specialized software.\n- **Issue ID:** AG-22\n- **Project:** Agent\n- **Type:** Story\n\n**User Story 1 Task 1:** \n- **Title:** Gather and Analyze Requirements for Calculator Functionalities\n- **Description:** Engage with stakeholders to finalize all the basic and scientific functionalities required for the calculator, including arithmetic operations, trigonometric functions, history feature, and complex number operations.\n- **Issue ID:** AG-23\n- **Project:** Agent\n- **Type:** Task\n\n**User Story 1 Task 2:** \n- **Title:** Design User Interface with Student-Friendly Features\n- **Description:** Design an intuitive and responsive user interface for the calculator that is suitable for students, ensuring it includes theme options, mobile responsiveness, and accessibility features.\n- **Issue ID:** AG-24\n- **Project:** Agent\n- **Type:** Task\n\nThe information has been saved successfully. Terminate.',
-      timestamp: '2024-10-17 21:25:01',
-    },
+
     {
       from_LookAI: true,
       message: 'From jira_agent to user_prompting_agent\n',
       timestamp: '2024-10-17 21:23:45',
+    },
+    {
+      from_LookAI: true,
+      message: {
+        instructions:
+          'Determ e projects for creating the user story. projects for creating the user story. projects for creating the user story.',
+      },
+      timestamp: '2024-10-25 21:28:56',
     },
   ];
 
@@ -87,7 +90,7 @@
             {#if messageObj.from_LookAI}
               {#if isJsonString(messageObj?.message?.json_string)}
                 <div
-                  class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
+                  class="wrapJson w-full background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
                   contenteditable="false"
                 >
                   {#if JSON.parse(messageObj.message.json_string)[0].operation === 'write'}
@@ -108,19 +111,19 @@
                 </div>
               {:else if typeof messageObj.message === 'object'}
                 <div
-                  class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
+                  class="w-full wrapJson background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
                   contenteditable="false"
                 >
-                  <pre>{messageObj.message &&
-                      typeof messageObj.message === 'obj' &&
-                      JSON.stringify(messageObj.message, null, 2)}</pre>
+                  <pre>{JSON.stringify(messageObj.message, null, 2)}</pre>
                 </div>
               {:else if typeof messageObj.message === 'string'}
                 <div
-                  class="w-full prbcg p-4 rounded-lg leading-relaxed text-gray-800"
+                  class="w-full wrapJson background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
                   contenteditable="false"
                 >
-                  <div class="mdc-typography--body2">{messageObj.message}</div>
+                  <pre class="mt-4">
+            {messageObj.message}
+      </pre>
                 </div>
               {/if}
             {:else if /https?:\/\/[^\s]+/.test(messageObj.message)}
@@ -132,7 +135,7 @@
               </div>
             {:else}
               <div
-                class="w-full bg-green-100 p-4 rounded-lg leading-relaxed text-gray-800"
+                class="w-full p-4 rounded-lg leading-relaxed text-gray-800"
                 contenteditable="false"
                 bind:innerHTML={messageObj.message}
               ></div>
@@ -157,7 +160,13 @@
   #message-container::-webkit-scrollbar {
     display: none; /* Hide scrollbar in WebKit browsers */
   }
-  .prbcg {
+  .background-primary-theme {
     background-color: var(--primary-color-light);
+  }
+  .wrapJson {
+    overflow-wrap: break-word; /* Allows long words to be broken and wrapped onto the next line */
+    word-wrap: break-word; /* Older syntax for compatibility */
+    white-space: pre-wrap; /* Preserves whitespace but allows wrapping */
+    overflow: auto; /* Adds a scrollbar if the content is too large */
   }
 </style>

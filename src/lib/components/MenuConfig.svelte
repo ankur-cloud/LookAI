@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import {
     projectList,
-    // modelList,
+    modelList,
     internet,
     tokenUsage,
     agentState,
@@ -34,35 +34,35 @@
   let modelMenu;
   let searchMenu;
 
-  const modelList = writable({
-    CLAUDE: [
-      ['Claude 3 Opus', 'claude-3-opus-20240229'],
-      ['Claude 3 Sonnet', 'claude-3-sonnet-20240229'],
-      ['Claude 3 Haiku', 'claude-3-haiku-20240307'],
-    ],
-    GOOGLE: [['Gemini 1.0 Pro', 'gemini-pro']],
-    GROQ: [
-      ['LLAMA3 8B', 'llama3-8b-8192'],
-      ['LLAMA3 70B', 'llama3-70b-8192'],
-      ['LLAMA2 70B', 'llama2-70b-4096'],
-      ['Mixtral', 'mixtral-8x7b-32768'],
-      ['GEMMA 7B', 'gemma-7b-it'],
-    ],
-    MISTRAL: [
-      ['Mistral 7b', 'open-mistral-7b'],
-      ['Mistral 8x7b', 'open-mixtral-8x7b'],
-      ['Mistral Medium', 'mistral-medium-latest'],
-      ['Mistral Small', 'mistral-small-latest'],
-      ['Mistral Large', 'mistral-large-latest'],
-    ],
-    OLLAMA: [],
-    OPENAI: [
-      ['GPT-4 Turbo', 'gpt-4-turbo'],
-      ['GPT-3.5 Turbo', 'gpt-3.5-turbo-0125'],
-      ['GPT-4o', 'gpt-4o'],
-    ],
-    PHI3: [['Phi-3-mini-128k', 'microsoft/Phi-3-mini-128k-instruct']],
-  });
+  // const modelList = writable({
+  //   CLAUDE: [
+  //     ['Claude 3 Opus', 'claude-3-opus-20240229'],
+  //     ['Claude 3 Sonnet', 'claude-3-sonnet-20240229'],
+  //     ['Claude 3 Haiku', 'claude-3-haiku-20240307'],
+  //   ],
+  //   GOOGLE: [['Gemini 1.0 Pro', 'gemini-pro']],
+  //   GROQ: [
+  //     ['LLAMA3 8B', 'llama3-8b-8192'],
+  //     ['LLAMA3 70B', 'llama3-70b-8192'],
+  //     ['LLAMA2 70B', 'llama2-70b-4096'],
+  //     ['Mixtral', 'mixtral-8x7b-32768'],
+  //     ['GEMMA 7B', 'gemma-7b-it'],
+  //   ],
+  //   MISTRAL: [
+  //     ['Mistral 7b', 'open-mistral-7b'],
+  //     ['Mistral 8x7b', 'open-mixtral-8x7b'],
+  //     ['Mistral Medium', 'mistral-medium-latest'],
+  //     ['Mistral Small', 'mistral-small-latest'],
+  //     ['Mistral Large', 'mistral-large-latest'],
+  //   ],
+  //   OLLAMA: [],
+  //   OPENAI: [
+  //     ['GPT-4 Turbo', 'gpt-4-turbo'],
+  //     ['GPT-3.5 Turbo', 'gpt-3.5-turbo-0125'],
+  //     ['GPT-4o', 'gpt-4o'],
+  //   ],
+  //   PHI3: [['Phi-3-mini-128k', 'microsoft/Phi-3-mini-128k-instruct']],
+  // });
 
   // const searchEngineList = writable([
   //   'Google 1',
@@ -98,6 +98,7 @@
   );
 
   function selectModel(model) {
+    console.log('selectModel', model);
     selectedModel = `${model[0]}`;
     localStorage.setItem('selectedModel', model[1]);
   }
@@ -106,8 +107,6 @@
     selectedSearchEngine = searchEngine;
     localStorage.setItem('selectedSearchEngine', searchEngine);
   }
-
-  console.log('selectedSearchEngine', selectedSearchEngine);
 </script>
 
 <div class="search-engine-select-menu">
@@ -123,7 +122,7 @@
           {#each $searchEngineList as engine}
             <Item
               on:SMUI:action={() => selectSearchEngine(engine)}
-              selected={selectSearchEngine === engine}
+              selected={selectedSearchEngine === engine}
             >
               <SelectionGroupIcon>
                 <i class="material-icons">check</i>
@@ -149,25 +148,26 @@
       {#if $modelList !== null}
         {#each Object.entries($modelList) as [modelName, modelItems]}
           <SelectionGroup>
-            <Text>{modelName}</Text>
+            <Text>{modelName.toLowerCase()}</Text>
+
             {#each modelItems as item}
               <Item
                 on:SMUI:action={() => selectModel(item)}
-                class="search-engine-list-btn"
-                selected={selectedModel === item}
+                selected={selectedModel === item[0]}
               >
                 <SelectionGroupIcon>
                   <i class="material-icons">check</i>
                 </SelectionGroupIcon>
-                <Text>{item}</Text>
+                <div class="models-element">
+                  <Text>{item[0]}</Text>
+                  <caption>{item[1]}</caption>
+                </div>
               </Item>
             {/each}
           </SelectionGroup>
+          <Separator />
         {/each}
       {/if}
     </List>
   </Menu>
-  <!-- <Fab on:click={() => clicked++} extended>
-    <Label>Extended</Label>
-  </Fab> -->
 </div>

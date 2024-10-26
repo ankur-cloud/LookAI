@@ -85,7 +85,9 @@
 <!-- <div class="flex h-full flex-col flex-1 gap-4 p-4 overflow-hidden"> -->
 <!-- <ControlPanel /> -->
 <div class="flex overflow-x-scroll main-content-home">
-  <div class="flex flex-1 min-w-[calc(50vw-120px)] h-full gap-2">
+  <div
+    class="flex flex-1 min-w-[calc(50vw-120px)] max-w-[calc(50vw-120px)] h-full gap-2"
+  >
     <Resizable.PaneGroup direction="horizontal" class="max-w-full">
       <Resizable.Pane defaultSize={50}>
         <div class="flex flex-col gap-2 w-full pr-4 h-full">
