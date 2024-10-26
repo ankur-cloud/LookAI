@@ -1,7 +1,5 @@
 <script>
-  import NewSidebar from '$lib/components/NewSidebar.svelte';
   import Drawer from '$lib/components/Drawer.svelte';
-  import Navbar from '$lib/components/Navbar.svelte';
   import { Toaster } from '$lib/components/ui/sonner';
   import { ModeWatcher } from 'mode-watcher';
   import '../app.pcss';
@@ -9,31 +7,41 @@
 
   import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
-  import Checkbox from '@smui/checkbox';
-  import FormField from '@smui/form-field';
-  import { Content } from '@smui/drawer';
-  import SettingsMenu from '../../src/lib/components/SettingsMenu.svelte';
   import SettingsMenuBanner from '../../src/lib/components/SettingsMenuBanner.svelte';
   import MenuConfig from '../../src/lib/components/MenuConfig.svelte';
-  import Menu, { SelectionGroup, SelectionGroupIcon } from '@smui/menu';
-  import List, { Item, Separator, Text } from '@smui/list';
-  import Button, { Label } from '@smui/button';
 
-  let prominent = false;
-  let dense = false;
   let secondaryColor = false;
 
   let isDrawerOpen = true;
   function toggleDrawer() {
     isDrawerOpen = !isDrawerOpen;
   }
+
+  // let topAppBar;
+
+  // let lightTheme =
+  //   typeof window === 'undefined' ||
+  //   window.matchMedia('(prefers-color-scheme: light)').matches;
+  // function switchTheme() {
+  //   lightTheme = !lightTheme;
+  //   let themeLink = document.head.querySelector<HTMLLinkElement>('#theme');
+  //   if (!themeLink) {
+  //     themeLink = document.createElement('link');
+  //     themeLink.rel = 'stylesheet';
+  //     themeLink.id = 'theme';
+  //   }
+  //   themeLink.href = `/smui${lightTheme ? '' : '-dark'}.css`;
+  //   document.head
+  //     .querySelector<HTMLLinkElement>('link[href$="/smui-dark.css"]')
+  //     ?.insertAdjacentElement('afterend', themeLink);
+  // }
 </script>
 
 <div class="flexy">
   <div class="top-app-bar-container flexor">
     <TopAppBar
       variant="static"
-      {prominent}
+      prominent={false}
       color={secondaryColor ? 'secondary' : 'primary'}
     >
       <Row>
@@ -44,7 +52,7 @@
           <Title>Look AI</Title>
         </Section>
         <Section align="end" toolbar>
-            <MenuConfig></MenuConfig>
+          <MenuConfig></MenuConfig>
         </Section>
       </Row>
     </TopAppBar>
@@ -52,8 +60,8 @@
     <SettingsMenuBanner />
 
     <div class="flexor-content">
-      <!-- <Toaster />
-        <ModeWatcher /> -->
+      <!-- <ModeWatcher /> -->
+      <Toaster />
       <div>
         <Drawer open={isDrawerOpen}>
           <slot />
@@ -76,6 +84,8 @@
 
     overflow: auto;
     display: inline-block;
+    overflow: hidden;
+    /* scrollbar-width: none; */
   }
 
   @media (max-width: 480px) {
@@ -102,5 +112,6 @@
     flex-grow: 1;
     overflow: auto;
     height: 90%;
+    scrollbar-width: thin;
   }
 </style>
