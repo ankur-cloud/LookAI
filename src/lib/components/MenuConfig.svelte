@@ -3,11 +3,10 @@
   import { onMount } from 'svelte';
   import {
     projectList,
-    modelList,
+    // modelList,
     internet,
     tokenUsage,
     agentState,
-    messages,
     searchEngineList,
   } from '$lib/store';
 
@@ -26,12 +25,8 @@
   import Menu, { SelectionGroup, SelectionGroupIcon } from '@smui/menu';
   import List, { Item, Separator, Text } from '@smui/list';
   import Button, { Label } from '@smui/button';
-  import Fab, { Icon } from '@smui/fab';
 
   import './SettingsMenu.scss';
-
-  let selected1 = 'Red';
-  let selected2 = 'Red';
 
   let selectedModel;
   let selectedSearchEngine;
@@ -39,23 +34,35 @@
   let modelMenu;
   let searchMenu;
 
-  // const modelList = writable({
-  //   'Model Category 1': [
-  //     ['Model 1', 'v1.0'],
-  //     ['Model 2', 'v2.0'],
-  //     ['Model 3', 'v3.0'],
-  //   ],
-  //   'Model Category 2': [
-  //     ['Model 4', 'v1.0'],
-  //     ['Model 5', 'v2.0'],
-  //     ['Model 6', 'v3.0'],
-  //   ],
-  //   'Model Category 3': [
-  //     ['Model 7', 'v1.0'],
-  //     ['Model 8', 'v2.0'],
-  //     ['Model 9', 'v3.0'],
-  //   ],
-  // });
+  const modelList = writable({
+    CLAUDE: [
+      ['Claude 3 Opus', 'claude-3-opus-20240229'],
+      ['Claude 3 Sonnet', 'claude-3-sonnet-20240229'],
+      ['Claude 3 Haiku', 'claude-3-haiku-20240307'],
+    ],
+    GOOGLE: [['Gemini 1.0 Pro', 'gemini-pro']],
+    GROQ: [
+      ['LLAMA3 8B', 'llama3-8b-8192'],
+      ['LLAMA3 70B', 'llama3-70b-8192'],
+      ['LLAMA2 70B', 'llama2-70b-4096'],
+      ['Mixtral', 'mixtral-8x7b-32768'],
+      ['GEMMA 7B', 'gemma-7b-it'],
+    ],
+    MISTRAL: [
+      ['Mistral 7b', 'open-mistral-7b'],
+      ['Mistral 8x7b', 'open-mixtral-8x7b'],
+      ['Mistral Medium', 'mistral-medium-latest'],
+      ['Mistral Small', 'mistral-small-latest'],
+      ['Mistral Large', 'mistral-large-latest'],
+    ],
+    OLLAMA: [],
+    OPENAI: [
+      ['GPT-4 Turbo', 'gpt-4-turbo'],
+      ['GPT-3.5 Turbo', 'gpt-3.5-turbo-0125'],
+      ['GPT-4o', 'gpt-4o'],
+    ],
+    PHI3: [['Phi-3-mini-128k', 'microsoft/Phi-3-mini-128k-instruct']],
+  });
 
   // const searchEngineList = writable([
   //   'Google 1',
@@ -125,6 +132,7 @@
             </Item>
           {/each}
         </SelectionGroup>
+        <Separator />
       {/if}
     </List>
   </Menu>

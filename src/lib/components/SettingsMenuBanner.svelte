@@ -1,21 +1,7 @@
 <script lang="ts">
-  import type { Action } from '@smui/banner';
-  import Banner, { Label } from '@smui/banner';
-  import Button from '@smui/button';
-  import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
   import '../../../src/app-main.css';
-  import { Icons } from './../icons';
   import 'boxicons/css/boxicons.min.css';
-  import { onDestroy, onMount } from 'svelte';
-  import {
-    projectList,
-    modelList,
-    internet,
-    tokenUsage,
-    agentState,
-    messages,
-    searchEngineList,
-  } from '$lib/store';
+  import { tokenUsage, agentState, messages } from '$lib/store';
   import {
     createProject,
     fetchMessages,
@@ -24,29 +10,24 @@
     fetchAgentState,
     fetchProjectFiles,
   } from '$lib/api';
+
   import { get } from 'svelte/store';
-  import Seperator from './ui/Seperator.svelte';
   import { writable } from 'svelte/store';
   import './SettingsMenu.scss';
-  import Select, { Option } from '@smui/select';
-  import Icon from '@smui/select/icon';
-  import Checkbox from '@smui/checkbox';
   import IconButton from '@smui/icon-button';
-  import LinearProgress from '@smui/linear-progress';
-  import FormField from '@smui/form-field';
+  import Menu from '@smui/menu';
+  import List, { Item, Text } from '@smui/list';
+  import Button, { Label, Icon } from '@smui/button';
+  import Banner from '@smui/banner';
 
-  import { createEventDispatcher } from 'svelte';
   import { Steps } from 'svelte-steps';
 
   let selectedProject: string;
-
-  // const projectList = writable([
-  //   'Project 1',
-  //   'Project 2',
-  //   'Project 3',
-  //   'Project 4',
-  //   'Project 5',
-  // ]);
+  let tempPL = [];
+  for (let i = 0; i < 20; i++) {
+    tempPL.push(`Project ${i + 1}`);
+  }
+  const projectList = writable(tempPL);
 
   const checkListAndSetItem = (
     list: any,
@@ -81,7 +62,7 @@
     const projectName = prompt('Enter the project name:');
     if (projectName) {
       await createProject(projectName);
-      projectName;
+      selectProject(projectName);
     }
   }
   async function deleteproject(project) {
@@ -94,58 +75,6 @@
       selectedProject = 'Select Project';
       localStorage.setItem('selectedProject', '');
     }
-  }
-
-  const actions = {
-    [0]: 'Primary',
-    [1]: 'Secondary',
-    [2]: 'Unknown',
-  };
-  let action = 'None yet';
-
-  function handleActionClicked(event: CustomEvent<{ action: Action }>) {
-    action = actions[event.detail.action];
-  }
-
-  let open = true;
-  const dispatch = createEventDispatcher();
-
-  function handleProjectChange(event) {
-    console.log('handleProjectChange', event);
-    // event.preventDefault();
-    const value = event.target.value;
-    console.log('valuevalue', value);
-    if (value === 'new project') {
-      createNewProject();
-    } else {
-      selectProject(value);
-    }
-    // dispatch('change', { target: { value } });
-  }
-
-  let progress = 0;
-  let closed = false;
-  let timer;
-
-  onMount(reset);
-
-  onDestroy(() => {
-    clearInterval(timer);
-  });
-
-  function reset() {
-    progress = 0;
-    closed = false;
-    clearInterval(timer);
-    timer = setInterval(() => {
-      progress += 0.01;
-
-      if (progress >= 1) {
-        progress = 1;
-        closed = true;
-        clearInterval(timer);
-      }
-    }, 100);
   }
 
   const steps = [
@@ -174,27 +103,49 @@
       code: 'RELDfET',
     },
   ];
+
+  let bannerOpen = true;
+  // $: {
+  //   bannerOpen = $page.url.pathname === '/';
+  // }
+
+  let projectMenu;
 </script>
 
-<Banner bind:open autoClose={false} style="height: 3rem;">
+<Banner bind:open={bannerOpen} autoClose={false} style="height: 3rem;">
   <svelte:fragment slot="actions">
-    <Select
-      key={(value) => `${value == null ? '' : value}`}
-      class="shaped-outlined"
-      variant="outlined"
-      bind:value={selectedProject}
-    >
-      <Option value="new project" on:click={createNewProject}>
-        <i class="fas fa-plus"></i> <span>New Project</span></Option
-      >
-      {#if $projectList !== null}
-        {#each $projectList as project}
-          <Option value={project} on:click={() => selectProject(project)}
-            >{project}</Option
-          >
-        {/each}
-      {/if}
-    </Select>
+    <div style="min-width: 150px;">
+      <Button on:click={() => projectMenu.setOpen(true)} variant="outlined">
+        <Label>{selectedProject}</Label>
+      </Button>
+      <Menu bind:this={projectMenu} class="project-menu">
+        <List>
+          <Item selected={selectedProject === 'New Project'}>
+            <Button on:click={createNewProject}>
+              <Text>New Project</Text>
+              <Icon class="material-icons">add</Icon>
+            </Button>
+          </Item>
+          {#if $projectList !== null}
+            {#each $projectList as project}
+              <Item selected={selectedProject === project}>
+                <Button on:click={() => selectProject(project)}>
+                  <Text>{project}</Text>
+                </Button>
+                <IconButton
+                  class="material-icons"
+                  ripple={false}
+                  on:click={deleteproject}
+                >
+                  delete</IconButton
+                >
+              </Item>
+            {/each}
+          {/if}
+        </List>
+      </Menu>
+    </div>
+
     <Steps
       {steps}
       size="2rem"
@@ -207,7 +158,4 @@
 </Banner>
 
 <style>
-  /* .testsssss {
-    background-color: brown;
-  } */
 </style>

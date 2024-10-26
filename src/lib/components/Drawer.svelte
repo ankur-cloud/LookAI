@@ -8,10 +8,9 @@
   let active = 'Gray Kittens';
   export let open = true;
 
-  function setActive(value: string) {
+  function setActive(value) {
     active = value;
   }
-
   let navItems = [
     {
       icon: Icons.HOMED_DASHBOARD,
