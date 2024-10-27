@@ -25,7 +25,7 @@
   --light-grey: #f7f7f7;
   --light-grey-body: rgb(237 237 237 / 80%);
   --primary-color: #003297;
-  --primary-color-light: rgba(2, 5, 112, 0.15);
+  --primary-color-light: rgba(2, 5, 112, 0.1);
 
   --white: #fff;
   --border: 1px solid var(--light-grey);

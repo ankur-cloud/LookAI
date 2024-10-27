@@ -41,9 +41,15 @@
       },
       timestamp: '2024-10-25 21:28:56',
     },
+    {
+      from_LookAI: false,
+      message: 'exit messaegeg',
+      timestamp: '2024-10-17 21:23:45',
+    },
   ];
 
   // Populate the messages store with dummy data on mount
+
   // onMount(() => {
   //   messages.set(dummyMessages);
   // });
@@ -90,7 +96,7 @@
             {#if messageObj.from_LookAI}
               {#if isJsonString(messageObj?.message?.json_string)}
                 <div
-                  class="wrapJson w-full background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
+                  class="shadow wrapJson w-full background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
                   contenteditable="false"
                 >
                   {#if JSON.parse(messageObj.message.json_string)[0].operation === 'write'}
@@ -111,19 +117,20 @@
                 </div>
               {:else if typeof messageObj.message === 'object'}
                 <div
-                  class="w-full wrapJson background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
+                  class="w-full shadow wrapJson background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
                   contenteditable="false"
                 >
                   <pre>{JSON.stringify(messageObj.message, null, 2)}</pre>
                 </div>
               {:else if typeof messageObj.message === 'string'}
                 <div
-                  class="w-full wrapJson background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
+                  class="w-full shadow wrapJson background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
                   contenteditable="false"
                 >
-                  <pre class="mt-4">
-            {messageObj.message}
-      </pre>
+                  <pre
+                    class="mt-4"
+                    bind:innerHTML={messageObj.message}
+                    contenteditable="false"></pre>
                 </div>
               {/if}
             {:else if /https?:\/\/[^\s]+/.test(messageObj.message)}
@@ -135,7 +142,7 @@
               </div>
             {:else}
               <div
-                class="w-full p-4 rounded-lg leading-relaxed text-gray-800"
+                class="shadow wrapJson w-full p-4 rounded-lg leading-relaxed text-gray-800 shadow background-userMsg"
                 contenteditable="false"
                 bind:innerHTML={messageObj.message}
               ></div>
@@ -163,10 +170,13 @@
   .background-primary-theme {
     background-color: var(--primary-color-light);
   }
-  .wrapJson {
-    overflow-wrap: break-word; /* Allows long words to be broken and wrapped onto the next line */
-    word-wrap: break-word; /* Older syntax for compatibility */
-    white-space: pre-wrap; /* Preserves whitespace but allows wrapping */
-    overflow: auto; /* Adds a scrollbar if the content is too large */
+  .background-userMsg {
+    background-color: var(--light-grey);
+  }
+  .shadow wrapJson {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    /* white-space: pre-wrap;   */
+    overflow: auto;
   }
 </style>
