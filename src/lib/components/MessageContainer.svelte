@@ -173,7 +173,7 @@
   .background-userMsg {
     background-color: var(--light-grey);
   }
-  .shadow wrapJson {
+  .wrapJson {
     overflow-wrap: break-word;
     word-wrap: break-word;
     /* white-space: pre-wrap;   */
