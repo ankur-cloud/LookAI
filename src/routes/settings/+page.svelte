@@ -5,7 +5,6 @@
   import { setMode } from 'mode-watcher';
   // import * as Select from '$lib/components/ui/select/index.js';
   import Seperator from '../../lib/components/ui/Seperator.svelte';
-  import SettingsMenu from '../../../src/lib/components/SettingsMenu.svelte';
   import Tab, { Label } from '@smui/tab';
   import TabBar from '@smui/tab-bar';
   import Button, { Icon } from '@smui/button';

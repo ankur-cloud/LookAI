@@ -1,6 +1,5 @@
 <script>
   import { onDestroy, onMount } from 'svelte';
-  import ControlPanel from '$lib/components/ControlPanel.svelte';
   import MessageContainer from '$lib/components/MessageContainer.svelte';
   import MessageInput from '$lib/components/MessageInput.svelte';
   import BrowserWidget from '$lib/components/BrowserWidget.svelte';

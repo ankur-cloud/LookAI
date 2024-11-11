@@ -181,13 +181,6 @@
                     >
                 </pre>
                 </div>
-                <!-- {:else if typeof messageObj.message === 'object'}
-                <div
-                  class="w-full shadow wrapJson background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"
-                  contenteditable="false"
-                >
-                  <pre>{JSON.stringify(messageObj.message, null, 2)}</pre>
-                </div> -->
               {:else if typeof messageObj.message === 'object'}
                 <div
                   class="w-full shadow wrapJson background-primary-theme p-4 rounded-lg leading-relaxed text-gray-800"

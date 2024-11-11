@@ -84,13 +84,11 @@
       <!-- <ModeWatcher /> -->
 
       <Toaster />
-      <div>
-        <Drawer open={isDrawerOpen}>
-          <slot />
-        </Drawer>
+      <Drawer open={isDrawerOpen}>
+        <slot />
+      </Drawer>
 
-        <!-- <NewSidebar /> -->
-      </div>
+      <!-- <NewSidebar /> -->
     </div>
   </div>
 </div>
