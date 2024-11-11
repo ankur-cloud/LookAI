@@ -3,13 +3,15 @@
   import { onMount } from 'svelte';
   import * as Tabs from '$lib/components/ui/tabs';
   import { setMode } from 'mode-watcher';
-  import * as Select from '$lib/components/ui/select/index.js';
+  // import * as Select from '$lib/components/ui/select/index.js';
   import Seperator from '../../lib/components/ui/Seperator.svelte';
   import SettingsMenu from '../../../src/lib/components/SettingsMenu.svelte';
   import Tab, { Label } from '@smui/tab';
   import TabBar from '@smui/tab-bar';
   import Button, { Icon } from '@smui/button';
   import Paper, { Content } from '@smui/paper';
+  import Select, { Option } from '@smui/select';
+  import IconButton from '@smui/icon-button';
 
   let settings = {};
   let editMode = false;
@@ -78,11 +80,18 @@
   const edit = () => {
     editMode = !editMode;
   };
+
+  let darkTheme = false;
+
+  const themeArr = [
+    { label: 'Light', value: false, icon: 'light_mode' },
+    { label: 'Dark', value: true, icon: 'dark_mode' },
+  ];
 </script>
 
 <div class="p-4 h-full w-full gap-8 flex flex-col overflow-y-auto">
-  <div class="mdc-typography--headline4">Settings</div>
-
+  <div class="mdc-typography--headline2">Settings</div>
+  <section toolbar></section>
   <!-- <SettingsMenu /> -->
   <TabBar
     tabs={['API Keys', 'API Endpoints', 'Appearance']}
@@ -166,33 +175,34 @@
         <div class="flex w-full justify-between items-center my-2 gap-8">
           <div>Select a theme</div>
           <div>
-            <Select.Root
-              onSelectedChange={(v) => {
-                setMode(v.value);
-              }}
-            >
-              <Select.Trigger class="w-[180px]">
-                <Select.Value placeholder={selectedTheme.label} />
-              </Select.Trigger>
-              <Select.Content>
-                <Select.Group>
-                  <Select.Item value={'light'} label={'Light'}
-                    >Light</Select.Item
-                  >
-                  <Select.Item value={'dark'} label={'Dark'}>Dark</Select.Item>
-                  <Select.Item value={'system'} label={'System'}
-                    >System</Select.Item
-                  >
-                </Select.Group>
-              </Select.Content>
-              <Select.Input name="favoriteFruit" />
-            </Select.Root>
+            <Select variant="outlined" bind:darkTheme>
+              {#each themeArr as { label, value, icon }}
+                <Option {value} on:click={() => toggleMode(value)}>
+                  {label}
+                </Option>
+              {/each}
+            </Select>
           </div>
         </div>
         <div class="flex w-full justify-between items-center my-2 gap-8">
           <div>Enable tab resize</div>
           <div>
-            <Select.Root
+            <Select
+              variant="outlined"
+              bind:darkTheme
+              label="Resize"
+              onChange={() => {
+                console.log('Enable tab resize');
+                setResize(v.value);
+              }}
+            >
+              <Option value="" />
+              {#each [{ label: 'Enable', value: 'enable' }, { label: 'Disable', value: 'disable' }] as { label, value }}
+                <Option {value}>{label}</Option>
+              {/each}
+            </Select>
+
+            <!-- <Select.Root
               onSelectedChange={(v) => {
                 setResize(v.value);
               }}
@@ -210,23 +220,21 @@
                   >
                 </Select.Group>
               </Select.Content>
-              <Select.Input name="favoriteFruit" />
-            </Select.Root>
+              <Sel ect.Input name="favoriteFruit" />
+            </Select.Root> -->
           </div>
         </div>
         <div class="flex w-full justify-between items-center my-2 gap-8">
           <div>Reset layout</div>
-          <div>
-            <button
-              class="min-w-[180px] p-2 border-2 rounded-lg flex gap-3 items-center justify-between button-custom btn-settings hover:bg-secondary"
-              on:click={() => {
-                localStorage.removeItem('paneforge:default');
-              }}
-            >
-              Reset
-              <i class="fas fa-undo"></i>
-            </button>
-          </div>
+          <Button
+            on:click={() => {
+              localStorage.removeItem('paneforge:default');
+            }}
+            variant="outlined"
+          >
+            <Icon class="material-icons">undo</Icon>
+            <Label>Reset</Label>
+          </Button>
         </div>
       </Content>
     </Paper>

@@ -9,6 +9,9 @@
   import IconButton from '@smui/icon-button';
   import SettingsMenuBanner from '../../src/lib/components/SettingsMenuBanner.svelte';
   import MenuConfig from '../../src/lib/components/MenuConfig.svelte';
+  import Button, { Icon } from '@smui/button';
+  import Tab, { Label } from '@smui/tab';
+  import { onMount } from 'svelte';
 
   let secondaryColor = false;
 
@@ -17,25 +20,43 @@
     isDrawerOpen = !isDrawerOpen;
   }
 
-  // let topAppBar;
+  let darkTheme = false;
 
-  // let lightTheme =
-  //   typeof window === 'undefined' ||
-  //   window.matchMedia('(prefers-color-scheme: light)').matches;
-  // function switchTheme() {
-  //   lightTheme = !lightTheme;
-  //   let themeLink = document.head.querySelector<HTMLLinkElement>('#theme');
-  //   if (!themeLink) {
-  //     themeLink = document.createElement('link');
-  //     themeLink.rel = 'stylesheet';
-  //     themeLink.id = 'theme';
-  //   }
-  //   themeLink.href = `/smui${lightTheme ? '' : '-dark'}.css`;
-  //   document.head
-  //     .querySelector<HTMLLinkElement>('link[href$="/smui-dark.css"]')
-  //     ?.insertAdjacentElement('afterend', themeLink);
-  // }
+  $: modeLabel = `switch to ${darkTheme ? 'light' : 'dark'} mode`;
+
+  // This icon represents the mode to which the user can switch.
+  $: modeIcon = darkTheme ? 'light_mode' : 'dark_mode';
+
+  // onMount(() => {
+  //   darkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  // });
+
+  function toggleMode(darkValue) {
+    console.log('darkValue', darkValue);
+    darkTheme = darkValue;
+    console.log('darkTheme', darkTheme);
+  }
 </script>
+
+<svelte:head>
+  {#if darkTheme === undefined}
+    <link
+      rel="stylesheet"
+      href="/smui.css"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="stylesheet"
+      href="/smui-dark.css"
+      media="screen and (prefers-color-scheme: dark)"
+    />
+  {:else if darkTheme}
+    <link rel="stylesheet" href="/smui.css" media="print" />
+    <link rel="stylesheet" href="/smui-dark.css" media="screen" />
+  {:else}
+    <link rel="stylesheet" href="/smui.css" />
+  {/if}
+</svelte:head>
 
 <div class="flexy">
   <div class="top-app-bar-container flexor">
@@ -61,6 +82,7 @@
 
     <div class="flexor-content">
       <!-- <ModeWatcher /> -->
+
       <Toaster />
       <div>
         <Drawer open={isDrawerOpen}>
