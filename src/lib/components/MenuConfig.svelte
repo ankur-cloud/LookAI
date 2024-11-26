@@ -148,7 +148,9 @@
       {#if $modelList !== null}
         {#each Object.entries($modelList) as [modelName, modelItems]}
           <SelectionGroup>
-            <Text>{modelName.toLowerCase()}</Text>
+            <div class="sub-header">
+              <Text>{modelName.toLowerCase()}</Text>
+            </div>
 
             {#each modelItems as item}
               <Item

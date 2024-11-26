@@ -2,6 +2,7 @@
   import { messages } from '$lib/store';
   import { afterUpdate, onDestroy, onMount } from 'svelte';
   import { JsonView } from '@zerodevx/svelte-json-view';
+  import JSONTree from 'svelte-json-tree';
 
   function isJsonString(str) {
     try {
@@ -10,15 +11,6 @@
       return false;
     }
     return true;
-  }
-
-  function jsonString(str) {
-    try {
-      const parsedStr = JSON.parse(str);
-      return parsedStr;
-    } catch (e) {
-      return str;
-    }
   }
 
   let messageContainer;
@@ -81,30 +73,103 @@
       },
       timestamp: '2024-10-27 21:59:20',
     },
+    {
+      from_LookAI: true,
+      message: {
+        instructions:
+          '{"fields": {"summary": "Calculate the Sum of Two Numbers", "description": "As a user, I want to input two numbers and receive their sum, so that I can quickly and accurately perform basic arithmetic operations without manual calculations.", "issuetype": {"name": "Story"}, "project": {"key": "AG"}}}',
+      },
+      timestamp: '2024-11-12 20:38:33',
+    },
+
+    {
+      from_LookAI: true,
+      message: {
+        instructions:
+          'Create a Jira issue for the user story to calculate the sum of two numbers, focusing on business needs and user experience.',
+        summary: 'Calculate the Sum of Two Numbers',
+        description:
+          'As a business stakeholder, I want the system to calculate the sum of two input numbers so that I can easily perform basic arithmetic operations within the application. This functionality will enhance the user experience by providing quick and accurate calculations.',
+        issuetype: { name: 'Story' },
+      },
+      timestamp: '2024-11-24 21:13:08',
+    },
+    {
+      from_LookAI: true,
+      message:
+        "It appears that I'm unable to create the JIRA issues due to a technical problem. Let's ensure that the business requirement for summing two numbers is clearly documented, and I recommend that you manually create the following tickets in your JIRA instance:\n\n---\n\n**User Story**\n\n**Title:** Calculate the Sum of Two Numbers\n\n**Description:** \nAs a business stakeholder, I want the system to calculate the sum of two input numbers so that I can easily perform basic arithmetic operations within the application. This functionality will enhance the user experience by providing quick and accurate calculations.\n\n---\n\n**Sub-Tasks**\n\n1. **Title:** Requirements Understanding\n   - **Description:** Clarify the specific requirements and constraints of the summing functionality.\n\n2. **Title:** Code Generation Planning\n   - **Description:** Plan the approach for implementing the sum calculation, determining where and how the operation will be integrated into our system.\n\n3. **Title:** Code Implementation\n   - **Description:** Implement the logic to calculate the sum of two numbers within the system.\n\n4. **Title:** Error Handling & Resolution\n   - **Description:** Ensure that the functionality handles errors gracefully, such as invalid inputs.\n\n5. **Title:** Test Case Generation\n   - **Description:** Develop test cases to verify the correctness and robustness of the sum calculation functionality.\n\n6. **Title:** Code Finalization\n   - **Description:** Refine and finalize the implementation, ensuring it meets all requirements and passes all tests.\n\n---\n\nIf there’s anything else I can assist you with or if you have further questions regarding JIRA ticket creation, please let me know!",
+      timestamp: '2024-11-24 21:17:00',
+    },
+    {
+      from_LookAI: true,
+      message: {
+        instructions:
+          'Create a Jira issue for the user story to calculate the sum of two numbers, focusing on business needs and user experience.',
+        fields: {
+          summary: 'Calculate the Sum of Two Numbers',
+          description:
+            'As a business stakeholder, I want the system to calculate the sum of two input numbers so that I can easily perform basic arithmetic operations within the application. This functionality will enhance the user experience by providing quick and accurate calculations.',
+          issuetype: { name: 'Story' },
+        },
+      },
+      timestamp: '2024-11-24 21:21:27',
+    },
   ];
+
+  const parseMessageObject = (tempMsg) => {
+    let flag = false;
+
+    if (typeof tempMsg === 'object' && tempMsg !== null) {
+      for (const [key, value] of Object.entries(tempMsg)) {
+        if (isJsonString(value)) {
+          const parsedValue = JSON.parse(value);
+          tempMsg[key] = parsedValue;
+          flag = true;
+        } else if (typeof value === 'object') {
+          flag = true;
+        }
+      }
+    }
+
+    return { tempMsg, flag };
+  };
 
   const getData = (messages) => {
     return messages.map((x) => {
       let tempMsg = x.message;
-      let flag = false;
 
-      if (typeof tempMsg === 'object') {
-        for (const [key, value] of Object.entries(tempMsg)) {
-          if (isJsonString(value)) {
-            const parsedValue = JSON.parse(value);
-            tempMsg[key] = parsedValue;
-            flag = true;
-          }
-        }
-      }
-
+      const { tempMsg: updatedMsg, flag } = parseMessageObject(tempMsg);
+      console.log('updatedMsg', updatedMsg);
       return {
         ...x,
-        message: tempMsg,
+        message: updatedMsg,
         flag: flag,
       };
     });
   };
+
+  // const getDatsa = (messages) => {
+  //   return messages.map((x) => {
+  //     let tempMsg = x.message;
+  //     let flag = false;
+
+  //     if (typeof tempMsg === 'object') {
+  //       for (const [key, value] of Object.entries(tempMsg)) {
+  //         if (isJsonString(value)) {
+  //           const parsedValue = JSON.parse(value);
+  //           tempMsg[key] = parsedValue;
+  //           flag = true;
+  //         }
+  //       }
+  //     }
+
+  //     return {
+  //       ...x,
+  //       message: tempMsg,
+  //       flag: flag,
+  //     };
+  //   });
+  // };
 
   let transformedMessages = [];
 
@@ -117,9 +182,9 @@
     unsubscribe();
   });
 
-  onMount(() => {
-    messages.set(dummyMessages);
-  });
+  // onMount(() => {
+  //   messages.set(dummyMessages);
+  // });
 
   afterUpdate(() => {
     if ($messages && $messages.length > previousMessageCount) {
@@ -191,7 +256,8 @@
                       <span>{key}:</span>
 
                       {#if messageObj.flag}
-                        <JsonView json={value} />
+                        <!-- <JsonView json={value} /> -->
+                        <JSONTree {value} />
                       {:else}
                         <pre>{value}</pre>
                       {/if}
@@ -260,7 +326,7 @@
 
   .wrapJson pre {
     margin: 0;
-    overflow: hidden;
+    overflow: initial;
     white-space: pre-wrap;
   }
 </style>

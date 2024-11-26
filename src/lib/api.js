@@ -174,3 +174,8 @@ export async function fetchLogs() {
   const data = await response.json();
   return data.logs;
 }
+export async function fetchSearchPage() {
+  const response = await fetch(`${API_BASE_URL}/api/search`);
+  const data = await response.json();
+  return data.logs;
+}

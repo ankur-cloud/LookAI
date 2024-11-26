@@ -16,6 +16,7 @@
   let secondaryColor = false;
 
   let isDrawerOpen = true;
+  
   function toggleDrawer() {
     isDrawerOpen = !isDrawerOpen;
   }
@@ -86,6 +87,7 @@
       <Toaster />
       <Drawer open={isDrawerOpen}>
         <slot />
+        
       </Drawer>
 
       <!-- <NewSidebar /> -->

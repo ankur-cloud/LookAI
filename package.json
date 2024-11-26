@@ -60,6 +60,7 @@
     "mode-watcher": "^0.3.0",
     "paneforge": "^0.0.3",
     "socket.io-client": "^4.7.5",
+    "svelte-json-tree": "^2.2.0",
     "svelte-sonner": "^0.3.21",
     "svelte-steps": "^2.4.1",
     "tailwind-merge": "^2.2.2",

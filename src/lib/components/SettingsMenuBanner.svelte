@@ -1,7 +1,7 @@
 <script lang="ts">
   import '../../../src/app-main.css';
   import 'boxicons/css/boxicons.min.css';
-  import { tokenUsage, agentState, messages } from '$lib/store';
+  import { tokenUsage, agentState, messages, projectList } from '$lib/store';
   import {
     createProject,
     fetchMessages,
@@ -27,7 +27,6 @@
   for (let i = 0; i < 20; i++) {
     tempPL.push(`Project ${i + 1}`);
   }
-  const projectList = writable(tempPL);
 
   const checkListAndSetItem = (
     list: any,
@@ -60,7 +59,8 @@
 
   async function createNewProject() {
     const projectName = prompt('Enter the project name:');
-    if (projectName) {
+    const projectNames = prompt('Enter the project code:');
+    if (projectName && projectNames) {
       await createProject(projectName);
       selectProject(projectName);
     }
@@ -114,8 +114,12 @@
 
 <Banner bind:open={bannerOpen} autoClose={false} style="height: 3rem;">
   <svelte:fragment slot="actions">
-    <div style="min-width: 150px;">
-      <Button on:click={() => projectMenu.setOpen(true)} variant="outlined">
+    <div >
+      <Button
+        class="project-name-btn"
+        on:click={() => projectMenu.setOpen(true)}
+        variant="outlined"
+      >
         <Label>{selectedProject}</Label>
       </Button>
       <Menu bind:this={projectMenu} class="project-menu">

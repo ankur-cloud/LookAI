@@ -16,10 +16,17 @@
     width: 100%;
     max-width: 100%;
     .mdc-banner__actions {
+      .project-name-btn {
+        display: inline-block;
+        width: 10rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       width: 100%;
       align-items: center;
       .steps-container {
-        width: 100%;
+        width: 85%;
         height: 2rem;
         --primary: rgba(2, 5, 112, 0.4) !important;
         .step {
@@ -31,24 +38,17 @@
           position: relative;
           bottom: 50%;
           left: 80%;
+ 
+          white-space: nowrap; /* Prevent text from wrapping */
+          overflow: hidden; /* Hide overflow text */
+          text-overflow: ellipsis; /* Show ellipsis for overflow text */
+          display: inline-block; /* Required for text-overflow to work */
           .text-primary {
             color: rgb(255, 255, 255) !important;
           }
         }
       }
     }
-  }
-}
-
-.project-dropdown-items {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  ul li {
-    width: 70%;
-  }
-  .material-icons {
-    font-size: 1.5rem;
   }
 }
 
@@ -84,19 +84,6 @@
     height: 12rem;
     max-height: 15rem;
   }
-
-  // .mdc-notched-outline {
-  //   .mdc-notched-outline__leading {
-  //     border-radius: 1rem 0 0 1rem;
-  //     width: 1rem;
-  //   }
-  //   .mdc-notched-outline__trailing {
-  //     border-radius: 0 1rem 1rem 0;
-  //   }
-  //   .mdc-notched-outline__notch {
-  //     max-width: calc(100% - 1rem * 2);
-  //   }
-  // }
 }
 
 //banner items end
@@ -113,6 +100,10 @@
   max-height: 20rem;
 
   .mdc-menu__selection-group {
+    .sub-header {
+      background-color: var(--primary-color-light);
+      padding: 0 0.25rem;
+    }
     .mdc-menu__selection-group-icon {
       left: 0.5rem;
     }
@@ -131,10 +122,20 @@
 .search-engine-select-menu .mdc-menu {
   transform-origin: top right !important;
   top: 2rem !important;
-  height: 15rem;
+  // height: 15rem;
 }
 
 // navbar menus end
 .project-menu {
   max-height: 15rem !important;
+  align-items: center;
+
+  .mdc-deprecated-list .mdc-deprecated-list-item {
+    display: flex;
+    justify-content: space-between;
+    .mdc-banner__primary-action {
+      width: 90%;
+      justify-content: flex-start;
+    }
+  }
 }

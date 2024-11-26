@@ -97,23 +97,6 @@
       {#if resizeEnabled}
         <Resizable.Handle />
       {/if}
-      <!-- <Resizable.Pane defaultSize={50}> -->
-      <!-- <Resizable.PaneGroup direction="vertical"> -->
-      <!-- <Resizable.Pane defaultSize={50}> -->
-      <!-- <div class="flex h-full items-center justify-center p-2">
-                  <BrowserWidget />
-                </div> -->
-      <!-- </Resizable.Pane> -->
-      <!-- {#if resizeEnabled}
-                <Resizable.Handle />
-              {/if} -->
-      <!-- <Resizable.Pane defaultSize={50}> -->
-      <!-- <div class="flex h-full items-center justify-center p-2"> -->
-      <!-- <TerminalWidget /> -->
-      <!-- </div> -->
-      <!-- </Resizable.Pane> -->
-      <!-- </Resizable.PaneGroup> -->
-      <!-- </Resizable.Pane>   -->
     </Resizable.PaneGroup>
   </div>
   <div class="flex flex-col gap-2 min-w-[calc(100vw-120px)] h-full pr-4 p-2">
@@ -121,15 +104,8 @@
   </div>
 </div>
 
-<!-- </div> -->
 <style>
   .main-content-home {
-    /* scrollbar-width: thin; */
-    /* height: 95%;
-    overflow-x: scroll;
-    padding: 1rem 1.5rem;
-    margin-left: 1rem;
-    margin-top: 1rem; */
     height: 100%;
   }
 </style>
