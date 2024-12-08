@@ -22,8 +22,9 @@
 :root {
   --dark-grey: #333333;
   --medium-grey: #636363;
+  --medium-grey-json-border: rgb(99, 99, 99, 0.5);
   --light-grey: #f7f7f7;
-  --light-grey-body: rgb(237 237 237 / 80%);
+  --light-grey-body: rgb(237 237 237 / 1);
   --primary-color: #003297;
   --primary-color-light: rgba(2, 5, 112, 0.1);
 

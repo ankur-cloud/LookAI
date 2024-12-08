@@ -85,12 +85,16 @@
 <!-- <ControlPanel /> -->
 <div class="flex overflow-x-scroll main-content-home">
   <div
-    class="flex flex-1 min-w-[calc(50vw-120px)] max-w-[calc(50vw-120px)] h-full gap-2"
+    class="chat-panel flex flex-1 min-w-[calc(50vw-120px)] max-w-[calc(50vw-120px)] h-full gap-2"
   >
     <Resizable.PaneGroup direction="horizontal" class="max-w-full">
       <Resizable.Pane defaultSize={50}>
         <div class="flex flex-col gap-2 w-full pr-4 h-full">
-          <MessageContainer />
+          <!-- <MessageContainer /> -->
+          <div class="overflow-y-scroll">
+            <MessageContainer />
+          </div>
+
           <MessageInput />
         </div>
       </Resizable.Pane>
@@ -108,4 +112,5 @@
   .main-content-home {
     height: 100%;
   }
+ 
 </style>
